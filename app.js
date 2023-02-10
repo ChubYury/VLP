@@ -1,22 +1,18 @@
 const app = Vue.createApp({
   data() {
     return {
-      counter: 0,
-      userName: '',
-      confirmedName: '',
-    };
+      firstVal: ' ',
+      secondVal: '',
+    }
   },
+
   methods: {
-    add(num) { this.counter += num },
-    
-    reduce(num) { this.counter > 0 ? this.counter -= num : this.counter = 0 },
+    showAlert(yourText) { alert('Show alert: ' + yourText) },
 
-    setName(event, lastName) { this.userName = event.target.value +' '+ lastName },
+    getFirstVal(event) { this.firstVal = event.target.value },
 
-    submitForm() { console.log('Submited!') },
-
-    confirmInp() { this.confirmedName = this.userName },
+    getSecondVal(event) { this.secondVal = event.target.value }
   }
 })
 
-app.mount('#events')
+app.mount('#assignment')
