@@ -16,9 +16,11 @@
     </header>
     <section id="events">
       <h2>Events in Action</h2>
-      <button v-on:click="add">Add</button>
-      <button v-on:click="reduce">Reduce</button>
+      <button v-on:click="add(10)">Add</button>
+      <button v-on:click="reduce(5)">Reduce</button>
       <p>Result: {{ counter }}</p>
+      <input type="text" v-on:input="setName($event, 'anyName')">
+      <p>Your name: {{ userName }}</p>
     </section>
 
     <script src="https://unpkg.com/vue@next" defer></script>
