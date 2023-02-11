@@ -5,15 +5,16 @@ const app = Vue.createApp({
       name: ''
     };
   },
-  methods: {
-    // setName(event, lastName) { this.name = event.target.value },
 
-    outputFullName(yourLastName) {
+  computed: {
+    fullName() {
       console.log('Runing agane...');
       if (this.name === '') { return '' } 
-      else { return this.name + ' ' + yourLastName}
-    },
-
+      else { return this.name + ' ' + 'yourLastName'};
+    }
+  },
+  
+  methods: {
     add(num) { this.counter = this.counter + num },
     
     reduce(num) { this.counter = this.counter - num },
