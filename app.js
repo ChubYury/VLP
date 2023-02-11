@@ -1,18 +1,19 @@
 const app = Vue.createApp({
   data() {
     return {
-      firstVal: ' ',
-      secondVal: '',
-    }
+      counter: 0,
+      name: ''
+    };
   },
-
   methods: {
-    showAlert(yourText) { alert('Show alert: ' + yourText) },
+    // setName(event, lastName) { this.name = event.target.value },
 
-    getFirstVal(event) { this.firstVal = event.target.value },
+    add(num) { this.counter = this.counter + num },
+    
+    reduce(num) { this.counter = this.counter - num },
 
-    getSecondVal(event) { this.secondVal = event.target.value }
+    resetInp() { this.name = '' }
   }
-})
+});
 
-app.mount('#assignment')
+app.mount('#events');
