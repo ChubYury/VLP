@@ -8,6 +8,12 @@ const app = Vue.createApp({
   methods: {
     // setName(event, lastName) { this.name = event.target.value },
 
+    outputFullName(yourLastName) {
+      console.log('Runing agane...');
+      if (this.name === '') { return '' } 
+      else { return this.name + ' ' + yourLastName}
+    },
+
     add(num) { this.counter = this.counter + num },
     
     reduce(num) { this.counter = this.counter - num },

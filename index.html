@@ -24,7 +24,8 @@
       <!-- <input type="text" v-on:input="setName($event, 'Schwarzmüller')" v-bind:value="name"> -->
       <input type="text" v-model="name">
       <button v-on:click="resetInp">Resrt input</button>
-      <p>Your Name: {{ name }}</p>
+      <!-- <p>Your Name: {{ name() }}</p> -->
+      <p>Your Name: {{ outputFullName('text') }}</p>
     </section>
   </body>
 </html>
