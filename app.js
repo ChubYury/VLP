@@ -1,24 +1,15 @@
 const app = Vue.createApp({
-  data() {
+  data () {
     return {
-      userInp: '',
-      varVisible: 'block',
-      colorInp: ''
+      goals: []
     }
   },
 
   watch: {},
 
-  computed: {
-    setClasses() { return this.userInp },
-  },
+  computed: {},
 
-  methods: {
-    toggleVisible() {
-      if (this.varVisible === 'block') { this.varVisible = 'hidden' }
-      else { this.varVisible = 'block' }
-    }
-  }
+  methods: {}
 })
 
-app.mount('#assignment')
+app.mount('#user-goals')
