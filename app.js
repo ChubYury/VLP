@@ -1,27 +1,24 @@
 const app = Vue.createApp({
   data() {
     return {
-      boxASelected: false,
-      boxBSelected: false,
-      boxCSelected: false
-    };
-  },
-  
-  computed: {
-    boxAClasses() { 
-      return {active: this.boxASelected};
+      userInp: '',
+      varVisible: 'block',
+      colorInp: ''
     }
   },
 
-  methods: {
-    boxSelected(box) {
-      if (box === 'A') { this.boxASelected = !this.boxASelected } 
-      else if (box === 'B') { this.boxBSelected = !this.boxBSelected } 
-      else if (box === 'C') { this.boxCSelected = !this.boxCSelected };
-    },
+  watch: {},
 
-    testF() {console.log('pec');}
+  computed: {
+    setClasses() { return this.userInp },
+  },
+
+  methods: {
+    toggleVisible() {
+      if (this.varVisible === 'block') { this.varVisible = 'hidden' }
+      else { this.varVisible = 'block' }
+    }
   }
 })
 
-app.mount('#styling')
+app.mount('#assignment')
