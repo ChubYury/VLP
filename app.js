@@ -1,23 +1,32 @@
 const app = Vue.createApp({
-  data () {
+  data() {
     return {
-      goalValueInp: '',
-      goals: []
+      taskInp: '',
+      taskList: [],
+      flagHidden: false
     }
   },
 
   watch: {},
 
-  computed: {},
+  computed: {
+    showTitle() {
+      return this.flagHidden ? 'Show List' : 'Hide' 
+    }
+  },
 
   methods: {
-    addGoal() {
-      this.goals.push(this.goalValueInp);
-      this.goalValueInp = '';
+    addTask() {
+      this.taskList.push(this.taskInp);
+      this.taskInp = '';
     },
 
-    removeGoal(idx) { this.goals.splice(idx, 1) },
+    delTask(idx) {this.taskList.splice(idx, 1)},
+
+    hideList() {
+      this.flagHidden = !this.flagHidden
+    }
   }
 })
 
-app.mount('#user-goals')
+app.mount('#assignment')
