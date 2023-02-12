@@ -13,9 +13,10 @@ const app = Vue.createApp({
   methods: {
     addGoal() {
       this.goals.push(this.goalValueInp);
-      this.goalValueInp = '',
-      console.log(this.goals);
+      this.goalValueInp = '';
     },
+
+    removeGoal(idx) { this.goals.splice(idx, 1) },
   }
 })
 
