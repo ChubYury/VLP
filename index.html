@@ -14,22 +14,22 @@
   </head>
   <body>
     <header>
-      <h1>Vue Styling</h1>
+      <h1>Vue Lists and Conditional Content</h1>
     </header>
     <section id="assignment">
-      <!-- 1) Fetch the user input and use it as a CSS class -->
-      <!-- The entered class should be added to the below paragraph -->
-      <input type="text" v-model="userInp"/>
-      <!-- (available classes: "user1", "user2") -->
-      <p  :class="[userInp, varVisible]"> Style me! </p>
-
-      <button @click="toggleVisible">Toggle Paragraph</button>
-      <!-- 2) Use the "visible" and "hidden" classes to show/ hide the above paragraph -->
-      <!-- Clicking the button should toggle between the two options -->
-
-      <!-- 3) Add dynamic inline styling to the below paragraph and let the user enter a background-color -->
-      <input type="text" v-model="colorInp"/>
-      <p :class="setColor" :style="{backgroundColor: colorInp}">Style me inline!</p>
+      <h2>Assignment</h2>
+      <!-- 1) Add code to manage a list of tasks in a Vue app -->
+      <!-- When clicking "Add Task" a new task with the entered text should be added -->
+      <input type="text" v-model="taskInp">
+      <button @click="addTask">Add Task</button>
+      <br>
+      <ul v-if="!flagHidden">
+        <!-- 2) Output the list of tasks here -->
+        <li v-for="(taskItem, index) in taskList" :key="taskItem" @click="delTask(index)">{{ taskItem }}</li>
+      </ul>
+      <!-- 3) When the below button is pressed, the list should be shown or hidden -->
+      <!-- BONUS: Also update the button caption -->
+      <button @click="hideList">{{showTitle}}</button>
     </section>
   </body>
 </html>

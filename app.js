@@ -1,22 +1,30 @@
 const app = Vue.createApp({
   data() {
     return {
-      userInp: '',
-      varVisible: 'block',
-      colorInp: ''
+      taskInp: '',
+      taskList: [],
+      flagHidden: false
     }
   },
 
   watch: {},
 
   computed: {
-    setClasses() { return this.userInp },
+    showTitle() {
+      return this.flagHidden ? 'Show List' : 'Hide' 
+    }
   },
 
   methods: {
-    toggleVisible() {
-      if (this.varVisible === 'block') { this.varVisible = 'hidden' }
-      else { this.varVisible = 'block' }
+    addTask() {
+      this.taskList.push(this.taskInp);
+      this.taskInp = '';
+    },
+
+    delTask(idx) {this.taskList.splice(idx, 1)},
+
+    hideList() {
+      this.flagHidden = !this.flagHidden
     }
   }
 })
