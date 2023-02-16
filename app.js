@@ -8,10 +8,21 @@ const app = Vue.createApp({
       monsterHealth: 100,
       playerHealth: 100,
       chargeSpecAttack: 0,
+      winner: null,
     }
   },
 
-  watch: {},
+  watch: {
+    playerHealth(value) {
+      if (value <= 0 && this.monsterHealth <= 0) { this.winner = 'draw' }
+      else if (value <= 0) { this.winner = 'monster' };
+    },
+
+    monsterHealth(value) {
+      if (value <= 0 && this.playerHealth <= 0) { this.winner = 'draw' }
+      else if (value <= 0 ) { this.winner = 'player' };
+    }
+  },
 
   computed: {
     monsterBarStyles() {
@@ -31,21 +42,21 @@ const app = Vue.createApp({
     attackMonster() {
       const damage = getRandomValue(5, 12);
       
-      this.monsterHealth >= damage ? this.monsterHealth -= damage : this.monsterHealth = 0;
+      this.monsterHealth -= damage;
       this.attackPlayer();
     },
 
     attackPlayer() {
       const damage = getRandomValue(10, 20);
       
-      this.playerHealth >= damage ? this.playerHealth -= damage : this.playerHealth = 0;
+      this.playerHealth -= damage;
       this.chargeSpecAttack += 1;
     },
 
     specAttackMonster() {
       const bigDamage = getRandomValue(15, 30);
 
-      this.monsterHealth >= bigDamage ? this.monsterHealth -= bigDamage : this.monsterHealth = 0;
+      this.monsterHealth -= bigDamage;
       this.attackPlayer();
       this.chargeSpecAttack = 0;
     },
