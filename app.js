@@ -26,19 +26,32 @@ const app = Vue.createApp({
 
   computed: {
     monsterBarStyles() {
+      if (this.monsterHealth <= 0) {
+        return {width: '0%'}
+      }
       return {width: this.monsterHealth + '%'}
     },
 
     playerBarStyles() {
+      if (this.playerHealth <= 0) {
+        return { width: '0%'}
+      }
       return {width: this.playerHealth + '%'}
     },
 
     specAttackActive() {
-      return this.chargeSpecAttack >= 3 ? false : true;
+      return this.chargeSpecAttack % 3 ? true : false;
     }
   },
 
   methods: {
+    newGame() {
+      this.monsterHealth =100;
+      this.playerHealth = 100;
+      this.chargeSpecAttack = 0;
+      this.winner = 0; 
+    },
+
     attackMonster() {
       const damage = getRandomValue(5, 12);
       
@@ -58,7 +71,6 @@ const app = Vue.createApp({
 
       this.monsterHealth -= bigDamage;
       this.attackPlayer();
-      this.chargeSpecAttack = 0;
     },
 
     addHeal() {
@@ -67,7 +79,9 @@ const app = Vue.createApp({
       this.chargeSpecAttack += 1;
       this.playerHealth + playerCure <= 100 ? this.playerHealth += playerCure : this.playerHealth = 100;
       this.attackPlayer();
-    }
+    },
+
+    surrender() { this.winner = 'monster' }
   }
 })
 
