@@ -50,13 +50,13 @@ const app = Vue.createApp({
       this.chargeSpecAttack = 0;
     },
 
-    // addHeal() {
-    //   const monsterCure = getRandomValue(5, 30);
-    //   const playerCure = getRandomValue(5, 30);
+    addHeal() {
+      const playerCure = getRandomValue(5, 30);
 
-    //   this.monsterHealth + monsterCure <= 100 ? this.monsterHealth += monsterCure : this.monsterHealth = 100;
-    //   this.playerHealth + playerCure <= 100 ? this.playerHealth += playerCure : this.playerHealth = 100;
-    // }
+      this.chargeSpecAttack += 1;
+      this.playerHealth + playerCure <= 100 ? this.playerHealth += playerCure : this.playerHealth = 100;
+      this.attackPlayer();
+    }
   }
 })
 
