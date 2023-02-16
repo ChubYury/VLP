@@ -9,6 +9,7 @@ const app = Vue.createApp({
       playerHealth: 100,
       chargeSpecAttack: 0,
       winner: null,
+      logMesArr: []
     }
   },
 
@@ -39,9 +40,7 @@ const app = Vue.createApp({
       return {width: this.playerHealth + '%'}
     },
 
-    specAttackActive() {
-      return this.chargeSpecAttack % 3 ? true : false;
-    }
+    specAttackActive() { return this.chargeSpecAttack % 3 ? true : false }
   },
 
   methods: {
@@ -49,7 +48,8 @@ const app = Vue.createApp({
       this.monsterHealth =100;
       this.playerHealth = 100;
       this.chargeSpecAttack = 0;
-      this.winner = 0; 
+      this.winner = 0;
+      this.logMesArr = [];
     },
 
     attackMonster() {
@@ -57,12 +57,14 @@ const app = Vue.createApp({
       
       this.monsterHealth -= damage;
       this.attackPlayer();
+      this.addLogMessage('player', 'attack', damage);
     },
 
     attackPlayer() {
       const damage = getRandomValue(10, 20);
       
       this.playerHealth -= damage;
+      this.addLogMessage('monster', 'attack', damage);
       this.chargeSpecAttack += 1;
     },
 
@@ -71,6 +73,7 @@ const app = Vue.createApp({
 
       this.monsterHealth -= bigDamage;
       this.attackPlayer();
+      this.addLogMessage('Player', 'special attack', bigDamage);
     },
 
     addHeal() {
@@ -79,9 +82,18 @@ const app = Vue.createApp({
       this.chargeSpecAttack += 1;
       this.playerHealth + playerCure <= 100 ? this.playerHealth += playerCure : this.playerHealth = 100;
       this.attackPlayer();
+      this.addLogMessage('player', 'cure', playerCure);
     },
 
-    surrender() { this.winner = 'monster' }
+    surrender() { this.winner = 'monster' },
+
+    addLogMessage(who, wat, value) {
+      this.logMesArr.unshift({
+        actionBy: who, 
+        actionType: wat, 
+        actionValue: value
+      });
+    }
   }
 })
 
