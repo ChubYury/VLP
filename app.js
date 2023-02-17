@@ -18,6 +18,10 @@ const app = Vue.createApp({
 app.mount('#app');
 
 const app2 = Vue.createApp({
+  template: `
+    <h2>How create two app</h2>
+    <p>{{ favoriteMeal }}</p>
+  `,
   data() {
     return {
       favoriteMeal: 'Pizza'
