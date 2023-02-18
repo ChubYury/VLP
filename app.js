@@ -1,83 +1,49 @@
 const app = Vue.createApp({
   data() {
     return {
-      currentUserInput: '',
-      message: 'Vue is great!',
-    };
-  },
-  methods: {
-    saveInput(event) {
-      this.currentUserInput = event.target.value;
-    },
-    setText() {
-      // this.message = this.currentUserInput;
-      this.message = this.$refs.userText.value;
-      console.dir(this.$refs.userText);
-    },
+      friends: [
+        {id: 'friend001', name: 'Manuel Lorenz', phone: '01234 5678 991', email: 'manuel@localhost.com' },
+        {id: 'friend002', name: 'Julie Jones', phone: '09876 543 221', email: 'julie@localhost.com'},
+      ],
+      // flagHide: false,
+    }
   },
 
-  // Starting create app Vue
-  beforeCreate() {console.log('beforCreate()')},
+  watch: {},
 
-  // Finished creating the app Vue
-  created() {console.log('created()')},
+  computed: {},
 
-  // Starting mount the app Vue
-  beforeMount() {console.log('beforMount()')},
-
-  // Finished mount the app Vue 
-  mounted() {console.log('mounted()');},
-
-  // Starting element update in the app Vue
-  beforeUpdate() {console.log('beforeUpdate()');},
-
-  // Finished element update in the app Vue
-  updated() {console.log('updated()');},
-
-  // Starting unmount the app Vue
-  beforeUnmount() {console.log('beforUnmount()')},
-  
-  // Finished unmount the app Vue 
-  unmounted() {console.log('unmounted()');},
+  // methods: {
+  //   toggleVisible() {this.flagHide = !this.flagHide},
+  // }
 });
 
-app.mount('#app');
-
-// setTimeout(function () { 
-  // Delet app Vue
-  // app.unmount('#app')
-// }, 3000)
-
-const app2 = Vue.createApp({
+app.component('user-contact', {
   template: `
-    <h2>How create two app</h2>
-    <p>{{ favoriteMeal }}</p>
+    <li>
+      <h2>{{ friend.name }}</h2>
+      <button @click="toggleVisible">{{flagHide ? 'Hide' : 'Show'}} Details</button>
+      <ul v-if="flagHide">
+        <li><strong>Phone: </strong>{{ friend.phone }}</li>
+        <li><strong>Email: </strong>{{ friend.email }}</li>
+      </ul>
+    </li>
   `,
   data() {
     return {
-      favoriteMeal: 'Pizza'
+      flagHide: false,
+      friend: {
+        id: 'friend001', 
+        name: 'Manuel Lorenz', 
+        phone: '01234 5678 991', 
+        email: 'manuel@localhost.com' 
+      }
     }
-  }
+  },
+  
+  methods: {
+    toggleVisible() {this.flagHide = !this.flagHide},
+  },
 })
 
-app2.mount('#app2')
-
-// const data = {
-//   message: 'Hello!',
-//   longMessage: 'Hello! World!'
-// };
-
-// const handler = {
-//   set(target, key, value) {
-//     if (key === 'message') {
-//       target.longMessage = value + ' World!';
-//     }
-//     target.message = value;
-//   }
-// };
-
-// const proxy = new Proxy(data, handler);
-
-// proxy.message = 'Hello!!!!';
-
-// console.log(proxy.longMessage);
+app.mount('#app');
