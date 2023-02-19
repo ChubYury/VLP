@@ -4,8 +4,18 @@
   </header>
   <section>
     <ul>
-      <user-contact></user-contact>
-      <user-contact></user-contact>
+      <user-contact
+        name="man"
+        phone-num="324"
+        email-addr="qw@SD"
+      ></user-contact>
+
+      <user-contact
+        name="man"
+        phone-num="324"
+        email-addr="qw@SD"
+      ></user-contact>
+    
     </ul>
   </section>
 </template>
