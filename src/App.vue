@@ -5,19 +5,13 @@
   <section>
     <ul>
       <user-contact
-        name="man"
-        phone-num="324"
-        email-addr="qw@SD"
-        is-favorite= "1"
+        v-for="friend in friends"
+        :key="friend.id"
+        :name="friend.name"
+        :phone-num="friend.phone"
+        :email-addr="friend.email"
+        :is-favorite= true
       ></user-contact>
-
-      <user-contact
-        name="woman"
-        phone-num="324"
-        email-addr="qw@SD"
-        
-      ></user-contact>
-    
     </ul>
   </section>
 </template>
