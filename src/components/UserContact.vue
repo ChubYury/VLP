@@ -12,7 +12,27 @@
 
 <script>
   export default {
-    props: ["name", "phoneNum", "emailAddr", "isFavorite"],
+    // props: ["name", "phoneNum", "emailAddr", "isFavorite"],
+    props: {
+      name: String,
+      phoneNum: {
+        type: String,
+        required: true,
+      },
+      emailAddr: {
+        type: String,
+        required: true,
+        default: 'Not email'
+      },
+      isFavorite: {
+        type: String,
+        required: false,
+        default: '0',
+        validator: (value) => {
+          return value === '1' || value === '0';
+        }
+      },
+    },
     data() {
       return {
         friend: {},
