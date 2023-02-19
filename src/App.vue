@@ -3,7 +3,8 @@
     <h2>My friends</h2>
 
     <ul>
-      <li></li>
+      <user-contact></user-contact>
+      <user-contact></user-contact>
     </ul>
   </section>
 </template>
