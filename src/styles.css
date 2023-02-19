@@ -45,6 +45,10 @@ header {
   margin: 0 0 1rem 0;
 }
 
+#app header h2 {
+  color: #fff;
+}
+
 #app button {
   font: inherit;
   cursor: pointer;
