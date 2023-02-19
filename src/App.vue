@@ -8,12 +8,14 @@
         name="man"
         phone-num="324"
         email-addr="qw@SD"
+        is-favorite= "1"
       ></user-contact>
 
       <user-contact
-        name="man"
+        name="woman"
         phone-num="324"
         email-addr="qw@SD"
+        
       ></user-contact>
     
     </ul>
@@ -30,10 +32,6 @@
         ],
       };
     },
-    
-    computed: {},
-
-    method: {}
   }
 </script>
 
