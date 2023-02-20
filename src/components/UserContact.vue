@@ -33,6 +33,17 @@
         default: false,
       }
     },
+    emits: ['toggle-favorite'],
+    // emits: {
+    //   'toggle-favorite': function(id) {
+    //     if (id) {
+    //       return true;
+    //     } else {
+    //       console.warn('ID is missings!');
+    //       return false;
+    //     }
+    //   },
+    // },
     data() {
       return {
         flagHide: false,

@@ -3,6 +3,12 @@
     <h2>My friends</h2>
   </header>
   <section>
+    <new-user 
+      :count-user="friends.length"
+      @set-user="addNewUser"
+    ></new-user>
+  </section>
+  <section>
     <ul>
       <user-contact
         v-for="friend in friends"
@@ -23,8 +29,8 @@
     data() {
       return {
         friends: [
-          {id: 'friend001', name: 'Manuel Lorenz', phone: '01234 5678 991', email: 'manuel@localhost.com', isFavorite: true},
-          {id: 'friend002', name: 'Julie Jones', phone: '09876 543 221', email: 'julie@localhost.com', isFavorite: false},
+          {id: 'friend1', name: 'Manuel Lorenz', phone: '01234 5678 991', email: 'manuel@localhost.com', isFavorite: true},
+          {id: 'friend2', name: 'Julie Jones', phone: '09876 543 221', email: 'julie@localhost.com', isFavorite: false},
         ],
       };
     },
@@ -33,6 +39,12 @@
         const userActive = this.friends.find((friend) => friend.id === userId);
         
         userActive.isFavorite = !userActive.isFavorite
+      },
+
+      addNewUser(newUser) {
+        // console.log(newUser)
+        this.friends.push(newUser);
+        console.log(this.friends)
       }
     }
   }
