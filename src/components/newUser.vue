@@ -43,7 +43,7 @@
           return;
         }
         const newUser = {
-          id: `friend${this.countUser + 1}`,
+          id: `friend${new Date().toISOString() + this.countUser + 1}`,
           name: this.nameInp,
           phone: this.phoneInp,
           email: this.emailInp,

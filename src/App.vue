@@ -19,6 +19,7 @@
         :email-addr="friend.email"
         :is-favorite= "friend.isFavorite"
         @toggle-favorite="favoriteStatus"
+        @del-user="delUser"
       ></user-contact>
     </ul>
   </section>
@@ -41,10 +42,10 @@
         userActive.isFavorite = !userActive.isFavorite
       },
 
-      addNewUser(newUser) {
-        // console.log(newUser)
-        this.friends.push(newUser);
-        console.log(this.friends)
+      addNewUser(newUser) {this.friends.push(newUser)},
+
+      delUser(idUser) {
+        this.friends = this.friends.filter((friend) => friend.id !== idUser)
       }
     }
   }

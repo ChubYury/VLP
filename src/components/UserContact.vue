@@ -3,6 +3,7 @@
     <h2>{{ name }} {{ isFavorite ? '(Favorite)' : '' }}</h2>
     <button @click="toggleFavorite"> Toggle favorite</button>
     <button @click="toggleVisible">{{flagHide ? 'Hide' : 'Show'}} Details</button>
+    <button @click="$emit('del-user', id)">Delet</button>
     <ul v-if="flagHide">
       <li><strong>Phone:</strong>{{ phoneNum }}</li>
       <li><strong>Email:</strong>{{ emailAddr }}</li>
@@ -33,7 +34,7 @@
         default: false,
       }
     },
-    emits: ['toggle-favorite'],
+    emits: ['toggle-favorite', 'del-user'],
     // emits: {
     //   'toggle-favorite': function(id) {
     //     if (id) {
