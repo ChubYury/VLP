@@ -1,12 +1,12 @@
 <template>
-  <form action="">
+  <form action="" @submit.prevent>
     <div>
       <label for="nameInp">Name:</label>
       <input id="nameInp" type="text" v-model="nameInp">
     </div>
     <div>
       <label for="phoneInp">Phone:</label>
-      <input id="phoneInp" type="phone" v-model="phoneInp">
+      <input id="phoneInp" type="tel" v-model="phoneInp">
     </div>
     <div>
       <label for="emailInp">Email:</label>
@@ -16,7 +16,7 @@
       <input id="checkFavorite" type="checkbox" v-model="checkFavorite">
       <label for="checkFavorite">Is favorite?</label>
     </div>
-    <button @click.prevent="getDataUser"> Add new friend</button>
+    <button @click="getDataUser"> Add new friend</button>
     <!-- <p>{{ firstNameInp + ' ' + checkFavorite}} </p> -->
   </form>
 </template>
