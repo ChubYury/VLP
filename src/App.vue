@@ -1,61 +1,51 @@
 <template>
   <div>
-    <active-element
-      :topic-title="activeTopic && activeTopic.title"
-      :text="activeTopic && activeTopic.fullText"
-    ></active-element>
-    <knowledge-base></knowledge-base>
+    <the-header></the-header>
+    <button @click="setSelectedComponent('active-goals')">Active goals</button>
+    <button @click="setSelectedComponent('manage-goals')">Manage goals</button>
+    <!-- <active-goals v-if="selectedComponent === 'active-goals'"></active-goals>
+    <manage-goals v-else-if="selectedComponent === 'manage-goals'"></manage-goals> -->
+    <keep-alive>
+      <component :is="selectedComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
+import TheHeader from './components/TheHeader.vue';
+// import CoursGoals from './components/CoursGoals';
+// import BadgeList from './components/BadgeList.vue';
+// import UserInfo from './components/UserInfo.vue';
+import ManageGoals from './components/ManageGoals.vue';
+import ActiveGoals from './components/ActiveGoals.vue';
+
 export default {
+  components: {TheHeader, ManageGoals, ActiveGoals},
+  
   data() {
     return {
-      topics: [
-        {
-          id: 'basics',
-          title: 'The Basics',
-          description: 'Core Vue basics you have to know',
-          fullText:
-            'Vue is a great framework and it has a couple of key concepts: Data binding, events, components and reactivity - that should tell you something!',
-        },
-        {
-          id: 'components',
-          title: 'Components',
-          description:
-            'Components are a core concept for building Vue UIs and apps',
-          fullText:
-            'With components, you can split logic (and markup) into separate building blocks and then combine those building blocks (and re-use them) to build powerful user interfaces.',
-        },
-      ],
-      activeTopic: null,
+      selectedComponent: 'active-goals',
+      activeUser: {
+        name: 'Maximilian Schwarzmüller',
+        description: 'Site owner and admin',
+        role: 'admin',
+      },
     };
   },
-  provide(){
-    return {
-      topics: this.topics,
-      selectTopic: this.activateTopic
-    }
-  },
   methods: {
-    activateTopic(topicId) {
-      this.activeTopic = this.topics.find((topic) => topic.id === topicId);
-    },
-  },
-  mounted() {
-    setTimeout(() => {
-      this.topics.push({
-        id: 'events',
-        title: 'Events',
-        description: 'Events are important in Vue',
-        fullText: 'Events allow you to trigger code on demand!'
-      })
-    }, 3000)
+    setSelectedComponent(cmp) {
+      this.selectedComponent = cmp;
+    }
   }
 };
 </script>
 
 <style>
-  @import url('./styles.css');
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
 </style>
