@@ -1,51 +1,25 @@
 <template>
-  <the-header></the-header>
-  <section>
-    <base-card>
-      <base-btn 
-        :classes="'flat'"
-        @btn-click="test"
-      >Stored resources</base-btn>
-      <base-btn 
-        :classes="'flat'"
-        @btn-click="test"
-      >Add resource</base-btn>
-    </base-card>
-  </section>
-  <ul>
-    
-  </ul>
-  <stored-resources
-    :resourcesLs="resources"
-  ></stored-resources>
-  <!-- <button @click="test">Test</button> -->
+  <the-header title="Big app for learn Vue"></the-header>
+  <the-resources></the-resources>
 </template>
 
 <script>
   import {lsResources} from './db.js'
 
   import TheHeader from "./components/blocks/TheHeader.vue";
-  import StoredResources from './components/StoredResources.vue'
+  import TheResources from './components/learning-resources/TheResources.vue'
   
-
-  // import BaseCard from './components/BaseCard.vue';
-
   export default {
-    components: {TheHeader, StoredResources},
+    components: {TheHeader, TheResources},
     data() {
       return {
-        resources: lsResources
+        resources: lsResources,
       }
     },
     
-    // provide() {
-    //   return {
-    //     resources: lsResources,
-    //   }
-    // },
-    methods: {
-      test() {
-        console.log('Work btn');
+    provide() {
+      return {
+        resources: lsResources,
       }
     }
   }

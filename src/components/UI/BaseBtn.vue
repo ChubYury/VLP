@@ -2,7 +2,6 @@
   <button
     :type="type"
     :class="mode"
-    @click="$emit('btn-click')"
   ><slot></slot></button>
 </template>
 
@@ -16,14 +15,6 @@
         stateToggle: false
       }
     },
-
-    // methods: {
-    //   test() {
-    //     this.stateToggle = !this.stateToggle
-    //     this.$emit('btn-toggle', this.stateToggle)
-    //     // console.log(this.classes);
-    //   }
-    // }
   }
 </script>
 

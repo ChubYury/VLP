@@ -1,22 +1,22 @@
 <template>
   <section>
     <ul>
-      <!-- <learning-resorce></learning-resorce> -->
       <learning-resource 
-      v-for="resource in resourcesLs" 
-      :item="resource"
-      :key="resource.id"
-    ></learning-resource>
+        v-for="resource in resources" 
+        :item="resource"
+        :key="resource.id"
+      ></learning-resource>
     </ul>
   </section>
 </template>
 
 <script>
-  import LearningResource from './learning-resources/LearningResource.vue'
+  import LearningResource from './LearningResource.vue'
   
   export default {
     components: {LearningResource},
-    props: ['resourcesLs'],
+    inject: ['resources'],
+    
     data() {
       return {
 
