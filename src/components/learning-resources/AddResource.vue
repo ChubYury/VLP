@@ -14,7 +14,7 @@
           <label for="linkInp"> Link resorce</label>
           <input id="linkInp" type="text" v-model="linkInpValue">
         </div>
-        
+        <base-btn>Set new resource</base-btn>
       </form>
     </base-card>
   </section>
@@ -33,6 +33,9 @@
 </script>
 
 <style scoped>
+  form  div {
+    margin: 0.5rem 0;
+  }
   label {
     font-weight: bold;
     display: block;
@@ -46,6 +49,7 @@
     font: inherit;
     padding: 0.15rem;
     border: 1px solid #ccc;
+    border-radius: 3px;
   }
 
   input:focus,

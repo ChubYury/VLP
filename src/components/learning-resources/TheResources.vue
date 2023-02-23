@@ -3,10 +3,12 @@
     <base-card>
       <base-btn 
         @click="changeResource('stored-resources')"
+        :mode="resourceToggle === 'stored-resources' ? null : 'flat'"
       >Stored resources</base-btn>
       
       <base-btn 
         @click="changeResource('add-resource')"
+        :mode="resourceToggle === 'add-resource' ? null : 'flat'"
       >Add resource</base-btn>
     </base-card>
   </section>
