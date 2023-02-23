@@ -1,51 +1,68 @@
 <template>
-  <div>
-    <the-header></the-header>
-    <button @click="setSelectedComponent('active-goals')">Active goals</button>
-    <button @click="setSelectedComponent('manage-goals')">Manage goals</button>
-    <!-- <active-goals v-if="selectedComponent === 'active-goals'"></active-goals>
-    <manage-goals v-else-if="selectedComponent === 'manage-goals'"></manage-goals> -->
-    <keep-alive>
-      <component :is="selectedComponent"></component>
-    </keep-alive>
-  </div>
+  <the-header></the-header>
+  <section>
+    <base-card>
+      <base-btn 
+        :classes="'flat'"
+        @btn-click="test"
+      >Stored resources</base-btn>
+      <base-btn 
+        :classes="'flat'"
+        @btn-click="test"
+      >Add resource</base-btn>
+    </base-card>
+  </section>
+  <ul>
+    
+  </ul>
+  <stored-resources
+    :resourcesLs="resources"
+  ></stored-resources>
+  <!-- <button @click="test">Test</button> -->
 </template>
 
 <script>
-import TheHeader from './components/TheHeader.vue';
-// import CoursGoals from './components/CoursGoals';
-// import BadgeList from './components/BadgeList.vue';
-// import UserInfo from './components/UserInfo.vue';
-import ManageGoals from './components/ManageGoals.vue';
-import ActiveGoals from './components/ActiveGoals.vue';
+  import {lsResources} from './db.js'
 
-export default {
-  components: {TheHeader, ManageGoals, ActiveGoals},
+  import TheHeader from "./components/blocks/TheHeader.vue";
+  import StoredResources from './components/StoredResources.vue'
   
-  data() {
-    return {
-      selectedComponent: 'active-goals',
-      activeUser: {
-        name: 'Maximilian Schwarzmüller',
-        description: 'Site owner and admin',
-        role: 'admin',
-      },
-    };
-  },
-  methods: {
-    setSelectedComponent(cmp) {
-      this.selectedComponent = cmp;
+
+  // import BaseCard from './components/BaseCard.vue';
+
+  export default {
+    components: {TheHeader, StoredResources},
+    data() {
+      return {
+        resources: lsResources
+      }
+    },
+    
+    // provide() {
+    //   return {
+    //     resources: lsResources,
+    //   }
+    // },
+    methods: {
+      test() {
+        console.log('Work btn');
+      }
     }
   }
-};
 </script>
 
 <style>
-html {
-  font-family: sans-serif;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-body {
-  margin: 0;
-}
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  body {
+    margin: 0;
+  }
 </style>
