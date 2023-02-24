@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="form-control">
-      <rating-control></rating-control>
+      <rating-control v-model="rating"></rating-control>
     </div>
     <div class="form-control">
       <input type="checkbox" id="confirm-terms" name="confirm-terms" v-model="confirmTerms">
@@ -103,6 +103,7 @@
         interesCheckBox: [],
         howRadio: null,
         confirmTerms: false,
+        rating: null, 
         userNameValid: 'pending'
       }
     },
@@ -119,6 +120,7 @@
         this.interesCheckBox = [];
         console.log('How: ', this.howRadio);
         this.howRadio = null;
+        console.log('Rating: ', this.rating);
         console.log('Confirm terms: ', this.confirmTerms);
         this.confirmTerms = false;
         console.log('___________________________________________________');
