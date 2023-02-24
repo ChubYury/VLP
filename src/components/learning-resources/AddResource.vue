@@ -4,15 +4,15 @@
       <form action="" @submit.prevent>
         <div class="form-control">
           <label for="nameInp">Title resorce</label>
-          <input id="nameInp" type="text" v-model="titleInpValue">
+          <input id="nameInp" type="text" ref="titleInpValue">
         </div>
         <div class="form-control">
           <label for="descrInp"> Description resorce</label>
-          <textarea id="" cols="30" rows="3" v-model="descrInpValue"></textarea>
+          <textarea id="" cols="30" rows="3" ref="descrInpValue"></textarea>
         </div>
         <div class="form-control">
           <label for="linkInp"> Link resorce</label>
-          <input id="linkInp" type="url" v-model="linkInpValue">
+          <input id="linkInp" type="url" ref="linkInpValue">
         </div>
         <base-btn type="submit" @click="getNewResource">Set new resource</base-btn>
       </form>
@@ -23,21 +23,20 @@
 <script>
     export default {
       inject: ['getResource'],
-      data() {
-        return {
-          titleInpValue: '',
-          descrInpValue: '',
-          linkInpValue: ''
-        }
-      },
+      
       methods: {
         getNewResource() {
           const newResource =  {
-            id: 'res'+ this.titleInpValue,
-            title: this.titleInpValue,
-            description: this.descrInpValue,
-            link: this.linkInpValue
+            id: 'res'+ this.$refs.titleInpValue.value + new Date().toISOString(),
+            title: this.$refs.titleInpValue.value,
+            description: this.$refs.descrInpValue.value,
+            link: this.$refs.linkInpValue.value
           }
+
+          this.$refs.titleInpValue.value = '';
+          this.$refs.descrInpValue.value = '';
+          this.$refs.linkInpValue.value = '';
+
           this.getResource(newResource)
         }
       }

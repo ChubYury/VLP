@@ -12,7 +12,9 @@
       >Add resource</base-btn>
     </base-card>
   </section>
-  <component :is="resourceToggle"></component>
+  <keep-alive>
+    <component :is="resourceToggle"></component>
+  </keep-alive>
 </template>
 
 <script>
