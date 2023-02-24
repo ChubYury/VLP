@@ -1,51 +1,53 @@
 <template>
-  <div>
-    <the-header></the-header>
-    <button @click="setSelectedComponent('active-goals')">Active goals</button>
-    <button @click="setSelectedComponent('manage-goals')">Manage goals</button>
-    <!-- <active-goals v-if="selectedComponent === 'active-goals'"></active-goals>
-    <manage-goals v-else-if="selectedComponent === 'manage-goals'"></manage-goals> -->
-    <keep-alive>
-      <component :is="selectedComponent"></component>
-    </keep-alive>
-  </div>
+  <the-header title="Big app for learn Vue"></the-header>
+  <the-resources></the-resources>
 </template>
 
 <script>
-import TheHeader from './components/TheHeader.vue';
-// import CoursGoals from './components/CoursGoals';
-// import BadgeList from './components/BadgeList.vue';
-// import UserInfo from './components/UserInfo.vue';
-import ManageGoals from './components/ManageGoals.vue';
-import ActiveGoals from './components/ActiveGoals.vue';
+  import {lsResources} from './db.js'
 
-export default {
-  components: {TheHeader, ManageGoals, ActiveGoals},
+  import TheHeader from "./components/blocks/TheHeader.vue";
+  import TheResources from './components/learning-resources/TheResources.vue'
   
-  data() {
-    return {
-      selectedComponent: 'active-goals',
-      activeUser: {
-        name: 'Maximilian Schwarzmüller',
-        description: 'Site owner and admin',
-        role: 'admin',
-      },
-    };
-  },
-  methods: {
-    setSelectedComponent(cmp) {
-      this.selectedComponent = cmp;
+  export default {
+    components: {TheHeader, TheResources},
+    data() {
+      return {
+        resourcesLs: lsResources,
+      }
+    },
+    
+    provide() {
+      return {
+        resources: this.resourcesLs,
+        getResource: this.addResource,
+        delResource: this.deleteResource
+      }
+    },
+    methods: {
+      addResource(newRes) {this.resourcesLs.push(newRes)},
+      
+      deleteResource(idItem) {
+        this.resourcesLs.forEach((item, index) => {
+          if (item.id === idItem) this.resourcesLs.splice(index, 1)
+        });
+      }
     }
   }
-};
 </script>
 
 <style>
-html {
-  font-family: sans-serif;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-body {
-  margin: 0;
-}
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  body {
+    margin: 0;
+  }
 </style>
