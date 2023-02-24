@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm">
+  <form @submit.prevent>
     <div class="form-control" :class="{invalid: userNameValid === 'invalid'}">
       <label for="user-name">Your Name</label>
       <input id="user-name" name="user-name" type="text" v-model.trim="userNameInp" @blur="validateInput"/>
@@ -78,17 +78,23 @@
       </div>
     </div>
     <div class="form-control">
+      <rating-control></rating-control>
+    </div>
+    <div class="form-control">
       <input type="checkbox" id="confirm-terms" name="confirm-terms" v-model="confirmTerms">
       <label for="confirm-terms">Agree to terms of user?</label>
     </div>
     <div>
-      <button>Save Data</button>
+      <button @click="submitForm">Save Data</button>
     </div>
   </form>
 </template>
 
 <script>
+  import RatingControl from './RatingControl.vue';
+
   export default {
+    components: {RatingControl},
     data() {
       return {
         userNameInp: '',
