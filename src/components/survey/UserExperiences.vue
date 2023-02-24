@@ -37,6 +37,9 @@ export default {
       .then((response) => { if (response.ok) return response.json() })
       .then((data) => this.results = data)
     }
+  },
+  mounted() {
+    this.loadExperiences()
   }
 };
 </script>
