@@ -13,13 +13,24 @@
     components: {TheHeader, TheResources},
     data() {
       return {
-        resources: lsResources,
+        resourcesLs: lsResources,
       }
     },
     
     provide() {
       return {
-        resources: lsResources,
+        resources: this.resourcesLs,
+        getResource: this.addResource,
+        delResource: this.deleteResource
+      }
+    },
+    methods: {
+      addResource(newRes) {this.resourcesLs.push(newRes)},
+      
+      deleteResource(idItem) {
+        this.resourcesLs.forEach((item, index) => {
+          if (item.id === idItem) this.resourcesLs.splice(index, 1)
+        });
       }
     }
   }

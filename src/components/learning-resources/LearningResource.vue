@@ -3,7 +3,7 @@
     <base-card>
       <header>
         <h3>{{ item.title }}</h3>
-        <base-btn mode="flat">Deled</base-btn>
+        <base-btn mode="flat" @click="delResource(item.id)">Deled</base-btn>
       </header>
       <p>{{ item.description }}</p>
       <nav>
@@ -15,13 +15,8 @@
 
 <script>
   export default {
+    inject: ['delResource'],
     props:['item'],
-    
-    data() {
-      return {
-
-      }
-    }
   }
 </script>
 

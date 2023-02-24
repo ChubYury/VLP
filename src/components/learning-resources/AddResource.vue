@@ -1,5 +1,18 @@
 <template>
   <section>
+    <base-dialog 
+      v-if="inputIsInvalid"
+      title="Invalid input"
+      @close="confirmError"
+    >
+      <template #default>
+        <p>Unfortunately, at least one input value is invalid.</p>
+        <p>Please check all inputs and make sure you enter at least a few characters intro each input field.</p>
+      </template>
+      <template #actions>
+        <base-btn @click="confirmError">Ok</base-btn>
+      </template>
+    </base-dialog>
     <base-card>
       <form action="" @submit.prevent>
         <div class="form-control">
@@ -23,9 +36,22 @@
 <script>
     export default {
       inject: ['getResource'],
-      
+
+      data() {
+        return {
+          inputIsInvalid: false,
+        }
+      },
       methods: {
         getNewResource() {
+          if (
+            this.$refs.titleInpValue.value.trim() === '' || 
+            this.$refs.descrInpValue.value.trim() === '' || 
+            this.$refs.linkInpValue.value.trim() === ''
+          ) {
+            this.inputIsInvalid = true;
+            return
+          }
           const newResource =  {
             id: 'res'+ this.$refs.titleInpValue.value + new Date().toISOString(),
             title: this.$refs.titleInpValue.value,
@@ -38,8 +64,11 @@
           this.$refs.linkInpValue.value = '';
 
           this.getResource(newResource)
-        }
-      }
+        },
+
+        confirmError() {this.inputIsInvalid = false},
+      },
+
     }
 </script>
 

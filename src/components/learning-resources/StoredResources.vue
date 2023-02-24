@@ -16,12 +16,6 @@
   export default {
     components: {LearningResource},
     inject: ['resources'],
-    
-    data() {
-      return {
-
-      }
-    },
   }
 </script>
 
