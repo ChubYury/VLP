@@ -19,32 +19,66 @@
     <div class="form-control">
       <h2>What are you interested in?</h2>
       <div>
-        <input id="interest-news" name="interest" type="checkbox" />
+        <input 
+          id="interest-news" 
+          name="interest" 
+          type="checkbox"
+          value="news"
+          v-model="interesCheckBox"/>
         <label for="interest-news">News</label>
       </div>
       <div>
-        <input id="interest-tutorials" name="interest" type="checkbox" />
+        <input 
+          id="interest-tutorials" 
+          name="interest" 
+          type="checkbox"
+          value="tutorials"
+          v-model="interesCheckBox"/>
         <label for="interest-tutorials">Tutorials</label>
       </div>
       <div>
-        <input id="interest-nothing" name="interest" type="checkbox" />
+        <input 
+          id="interest-nothing" 
+          name="interest" 
+          type="checkbox"
+          value="nothing"
+          v-model="interesCheckBox"/>
         <label for="interest-nothing">Nothing</label>
       </div>
     </div>
     <div class="form-control">
       <h2>How do you learn?</h2>
       <div>
-        <input id="how-video" name="how" type="radio" />
+        <input 
+        id="how-video" 
+        name="how" 
+        type="radio"
+        value="video" 
+        v-model="howRadio"/>
         <label for="how-video">Video Courses</label>
       </div>
       <div>
-        <input id="how-blogs" name="how" type="radio" />
+        <input 
+        id="how-blogs" 
+        name="how" 
+        type="radio"
+        value="blogs" 
+        v-model="howRadio"/>
         <label for="how-blogs">Blogs</label>
       </div>
       <div>
-        <input id="how-other" name="how" type="radio" />
+        <input 
+        id="how-other" 
+        name="how" 
+        type="radio"
+        value="other" 
+        v-model="howRadio"/>
         <label for="how-other">Other</label>
       </div>
+    </div>
+    <div class="form-control">
+      <input type="checkbox" id="confirm-terms" name="confirm-terms" v-model="confirmTerms">
+      <label for="confirm-terms">Agree to terms of user?</label>
     </div>
     <div>
       <button>Save Data</button>
@@ -59,6 +93,9 @@
         userNameInp: '',
         userAgeInp: null,
         referSelect: 'wom',
+        interesCheckBox: [],
+        howRadio: null,
+        confirmTerms: false,
       }
     },
     methods: {
@@ -70,6 +107,13 @@
         // console.log('User age (ref)', this.$refs.ageInp.value + 5);
         console.log('Referrer: ', this.referSelect);
         this.referSelect = '';
+        console.log('Interest: ', this.interesCheckBox);
+        this.interesCheckBox = [];
+        console.log('How: ', this.howRadio);
+        this.howRadio = null;
+        console.log('Confirm terms: ', this.confirmTerms);
+        this.confirmTerms = false;
+        console.log('___________________________________________________');
       }
     },
   }
