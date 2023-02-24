@@ -1,8 +1,9 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control">
+    <div class="form-control" :class="{invalid: userNameValid === 'invalid'}">
       <label for="user-name">Your Name</label>
-      <input id="user-name" name="user-name" type="text" v-model="userNameInp"/>
+      <input id="user-name" name="user-name" type="text" v-model.trim="userNameInp" @blur="validateInput"/>
+      <p v-if="userNameValid === 'invalid'">Please enter a valid</p>
     </div>
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
@@ -96,6 +97,7 @@
         interesCheckBox: [],
         howRadio: null,
         confirmTerms: false,
+        userNameValid: 'pending'
       }
     },
     methods: {
@@ -114,6 +116,14 @@
         console.log('Confirm terms: ', this.confirmTerms);
         this.confirmTerms = false;
         console.log('___________________________________________________');
+      },
+
+      validateInput() {
+        if (this.userNameInp === '') {
+          this.userNameValid = 'invalid';
+        } else {
+          this.userNameValid = 'valid';
+        }
       }
     },
   }
@@ -131,6 +141,12 @@ form {
 
 .form-control {
   margin: 0.5rem 0;
+}
+
+.form-control.invalid input,
+.form-control.invalid label  {
+  border-color: red;
+  color: red;
 }
 
 label {
