@@ -5,7 +5,8 @@
       <div>
         <base-button @click="loadExperiences">Load Submitted Experiences</base-button>
       </div>
-      <ul>
+      <p v-if="isLoading">Loading...</p>
+      <ul v-else-if="!isLoading">
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -28,14 +29,19 @@ export default {
   data() {
     return {
       results: [],
+      isLoading: false,
     }
   },
 
   methods: {
     loadExperiences() {
+      this.isLoading = true;
       fetch('http://localhost:3020/surveys')
       .then((response) => { if (response.ok) return response.json() })
-      .then((data) => this.results = data)
+      .then((data) => {
+        this.results = data;
+        this.isLoading = false;
+      })
     }
   },
   mounted() {
