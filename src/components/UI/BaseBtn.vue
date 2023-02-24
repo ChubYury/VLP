@@ -1,20 +1,12 @@
 <template>
   <button
-    :type="type"
     :class="mode"
   ><slot></slot></button>
 </template>
 
 <script>
   export default {
-    emits: ['btn-click'],
-    props: ['type', 'mode'],
-    
-    data() {
-      return {
-        stateToggle: false
-      }
-    },
+    props: ['mode'],
   }
 </script>
 

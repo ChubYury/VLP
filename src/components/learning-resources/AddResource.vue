@@ -2,19 +2,19 @@
   <section>
     <base-card>
       <form action="" @submit.prevent>
-        <div>
-          <label for="nameInp"> Name resorce</label>
-          <input id="nameInp" type="text" v-model="nameInpValue">
+        <div class="form-control">
+          <label for="nameInp">Title resorce</label>
+          <input id="nameInp" type="text" v-model="titleInpValue">
         </div>
-        <div>
+        <div class="form-control">
           <label for="descrInp"> Description resorce</label>
-          <textarea id="" cols="30" rows="10" v-model="descrInpValue"></textarea>
+          <textarea id="" cols="30" rows="3" v-model="descrInpValue"></textarea>
         </div>
-        <div>
+        <div class="form-control">
           <label for="linkInp"> Link resorce</label>
-          <input id="linkInp" type="text" v-model="linkInpValue">
+          <input id="linkInp" type="url" v-model="linkInpValue">
         </div>
-        <base-btn>Set new resource</base-btn>
+        <base-btn type="submit" @click="getNewResource">Set new resource</base-btn>
       </form>
     </base-card>
   </section>
@@ -22,11 +22,23 @@
 
 <script>
     export default {
+      inject: ['getResource'],
       data() {
         return {
-          nameInpValue: '',
+          titleInpValue: '',
           descrInpValue: '',
           linkInpValue: ''
+        }
+      },
+      methods: {
+        getNewResource() {
+          const newResource =  {
+            id: 'res'+ this.titleInpValue,
+            title: this.titleInpValue,
+            description: this.descrInpValue,
+            link: this.linkInpValue
+          }
+          this.getResource(newResource)
         }
       }
     }
