@@ -26,9 +26,8 @@
           <input type="radio" id="rating-great" value="great" name="rating" v-model="chosenRating" />
           <label for="rating-great">Great</label>
         </div>
-        <p
-          v-if="invalidInput"
-        >One or more input fields are invalid. Please check your provided data.</p>
+        <p v-if="invalidInput">One or more input fields are invalid. Please check your provided data.</p>
+        <p v-if="error">{{ error }}</p>
         <div>
           <base-button>Submit</base-button>
         </div>
@@ -44,6 +43,7 @@ export default {
       enteredName: '',
       chosenRating: null,
       invalidInput: false,
+      error: null
     };
   },
   // emits: ['survey-submit'],
@@ -59,7 +59,7 @@ export default {
       //   userName: this.enteredName,
       //   rating: this.chosenRating,
       // });
-
+      this.error = null;
       fetch('http://localhost:3020/surveys', {
         method: 'POST',
         headers: {'Content-Type': 'application/JSON;charset=utf-8'},
@@ -67,6 +67,16 @@ export default {
           name: this.enteredName,
           rating: this.chosenRating
         })
+      }).then((response) => {
+        if (response.ok) {
+          console.log(response);
+        } else {
+          throw new Error('Could not save data!');
+        }
+      }).catch((error) => {
+        console.log(error);
+        this.error = error.message
+        // this.error = 'Someting went wrong - try again later!';
       });
 
       this.enteredName = '';

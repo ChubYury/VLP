@@ -46,7 +46,6 @@ export default {
         .then((data) => {
           this.results = data;
           this.isLoading = false;
-          console.log('tut',this.error);
         })
         .catch((error) => {
           this.isLoading = false;
