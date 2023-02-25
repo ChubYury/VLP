@@ -6,9 +6,10 @@
         <base-button @click="loadExperiences">Load Submitted Experiences</base-button>
       </div>
       <p v-if="isLoading">Loading...</p>
+      <p v-else-if="!isLoading && error">{{ error }}</p>
       <p v-else-if="!isLoading && (!results || results.length === 0)"
       >No stored exsperiences found. Start adding some survey results first</p>
-      <ul v-else-if="!isLoading && results && results.length > 0">
+      <ul v-else>
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -32,18 +33,26 @@ export default {
     return {
       results: [],
       isLoading: false,
+      error: null,
     }
   },
 
   methods: {
     loadExperiences() {
       this.isLoading = true;
+      this.error = null;
       fetch('http://localhost:3020/surveys')
-      .then((response) => { if (response.ok) return response.json() })
-      .then((data) => {
-        this.results = data;
-        this.isLoading = false;
-      })
+        .then((response) => { if (response.ok) return response.json() })
+        .then((data) => {
+          this.results = data;
+          this.isLoading = false;
+          console.log('tut',this.error);
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          console.log(error);
+          this.error = 'Failed to featch data - please try again later.'
+        })
     }
   },
   mounted() {

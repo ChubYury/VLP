@@ -62,9 +62,7 @@ export default {
 
       fetch('http://localhost:3020/surveys', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/JSON;charset=utf-8',
-        },
+        headers: {'Content-Type': 'application/JSON;charset=utf-8'},
         body: JSON.stringify({
           name: this.enteredName,
           rating: this.chosenRating
