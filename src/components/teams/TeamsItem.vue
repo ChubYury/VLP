@@ -3,7 +3,7 @@
     <h3>{{ name }}</h3>
     <div class="team-members">{{ memberCount }} Members</div>
     <!-- <a href="#">View Members</a> -->
-    <router-link :to="hrefLink">View Members</router-link>
+    <router-link :to="teamMembersLink">View Members</router-link>
   </li>
 </template>
 
@@ -13,6 +13,11 @@ export default {
   data() {
     return {
       hrefLink: `/teams/${this.id}`
+    }
+  },
+  computed: {
+    teamMembersLink() {
+      return { name: 'team-members', params: { teamId: this.id }}
     }
   }
 };
