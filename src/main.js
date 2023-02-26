@@ -24,9 +24,21 @@ const router = createRouter({
     { path: '/users', components: { default: UsersList, footer: UsersFooter } },
     { path: '/:notFound(.*)', component: NotFound }
     // { path: '/:notFound(.*)', redirect: '/teams'}
-  ]
+  ],
   // this option changes the active class for a router-link
   // linkActiveClass: 'active'
+  scrollBehavior(to, from, savedPosition) {
+    console.log(to, from, savedPosition);
+    console.log('____________________________');
+    console.log(to, from, savedPosition);
+    console.log('____________________________');
+    console.log(to, from, savedPosition);
+    console.log('******************************');
+    if (savedPosition) {
+      return savedPosition
+    }
+    return { left: 0, top: 0}
+  }
 });
 
 const app = createApp(App);
