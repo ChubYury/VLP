@@ -46,6 +46,8 @@ export default {
       });
       
       this.teamName = selectedTeam.name;
+      console.log(this.$route.query);
+      
     }
   },
   created() {
