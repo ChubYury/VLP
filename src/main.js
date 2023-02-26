@@ -21,7 +21,19 @@ const router = createRouter({
       ]
     },
     // { path: '/teams', component: TeamsList, alias: '/'},
-    { path: '/users', components: { default: UsersList, footer: UsersFooter } },
+    { 
+      path: '/users', 
+      components: { 
+        default: UsersList, 
+        footer: UsersFooter 
+      },
+      beforeEnter(to, from, next) {
+        console.log('Users beforeEnter');
+        console.log(to);
+        console.log(from);
+        next()
+      }
+    },
     { path: '/:notFound(.*)', component: NotFound }
     // { path: '/:notFound(.*)', redirect: '/teams'}
   ],
@@ -41,12 +53,12 @@ const router = createRouter({
   }
 });
 
-router.beforeEach((_to, _from, next) =>{
-  // console.log('Global beforeEach');
-  // console.log(to);
-  // console.log('____________________________');
-  // console.log(from);
-  // console.log('_____________________________');
+router.beforeEach((to, from, next) =>{
+  console.log('Global beforeEach');
+  console.log(to);
+  console.log('____________________________');
+  console.log(from);
+  console.log('_____________________________');
   // if (to.name === 'team-members') {
   //   next();
   // } else {

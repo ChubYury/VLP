@@ -51,6 +51,10 @@ export default {
   created() {
     
     this.loadTeamMembers(this.teamId)
+  },
+  beforeRouteUpdate(_to, _from, next) {
+    console.log('TeamMembers cpn beforeRouteUpdate');
+    next()
   }
 };
 </script>

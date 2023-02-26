@@ -23,6 +23,10 @@ export default {
       // this.$router.back();
       // this.$router.forward();
     }
+  },
+  beforeRouteEnter(_to, _from , next) {
+    console.log('Users beforeRouterEnter');
+    next();
   }
 };
 </script>
