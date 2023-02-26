@@ -28,17 +28,31 @@ const router = createRouter({
   // this option changes the active class for a router-link
   // linkActiveClass: 'active'
   scrollBehavior(to, from, savedPosition) {
-    console.log(to, from, savedPosition);
-    console.log('____________________________');
-    console.log(to, from, savedPosition);
-    console.log('____________________________');
-    console.log(to, from, savedPosition);
-    console.log('******************************');
+    // console.log(to);
+    // console.log('____________________________');
+    // console.log(from);
+    // console.log('____________________________');
+    // console.log(savedPosition);
+    // console.log('******************************');
     if (savedPosition) {
       return savedPosition
     }
     return { left: 0, top: 0}
   }
+});
+
+router.beforeEach((_to, _from, next) =>{
+  // console.log('Global beforeEach');
+  // console.log(to);
+  // console.log('____________________________');
+  // console.log(from);
+  // console.log('_____________________________');
+  // if (to.name === 'team-members') {
+  //   next();
+  // } else {
+  //   next({ name: 'team-members', params: { teamId: 't2'} });
+  // }
+  next();
 });
 
 const app = createApp(App);
