@@ -4,7 +4,13 @@
     <button @click="animateBlock">Animate</button>
   </div>
   <div class="container">
-    <transition name="para">
+    <transition name="para" 
+      @before-enter="beforeEnter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @after-leave="afterLeave"
+      @enter="enter"
+    >
       <p v-if="paraIsVisible">This is only sometimes visible...</p>
     </transition>
     <button @click="paraVisible">Toggle paragraph</button>
@@ -35,12 +41,28 @@ export default {
     };
   },
   methods: {
-    toggleVisUsers() {
-      this.usersAreVisible = !this.usersAreVisible
+    beforeEnter(el) {
+      console.log('beforeEnter()');
+      console.log(el);
     },
-    paraVisible() {
-      this.paraIsVisible = !this.paraIsVisible
+    afterEnter(el) {
+      console.log('afterEnter()');
+      console.log(el);
     },
+    beforeLeave(el) {
+      console.log('beforeLeave()');
+      console.log(el);
+    },
+    afterLeave(el) {
+      console.log('afterLeave()');
+      console.log(el);
+    },
+    enter(el) {
+      console.log('enter()');
+      console.log(el);
+    },
+    toggleVisUsers() {this.usersAreVisible = !this.usersAreVisible},
+    paraVisible() {this.paraIsVisible = !this.paraIsVisible},
     animateBlock() {this.animatedBlock = !this.animatedBlock},
     showDialog() {this.dialogIsVisible = true},
     hideDialog() {this.dialogIsVisible = false},
