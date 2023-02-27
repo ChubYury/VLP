@@ -9,6 +9,12 @@
     </transition>
     <button @click="paraVisible">Toggle paragraph</button>
   </div>
+  <div class="container">
+    <transition name="fade-btn" mode="out-in">
+      <button @click="toggleVisUsers" v-if="!usersAreVisible">Show users</button>
+      <button @click="toggleVisUsers" v-else>Hide users</button>
+    </transition>
+  </div>
   <base-modal @close="hideDialog" :open="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
@@ -25,9 +31,13 @@ export default {
       animatedBlock: false,
       dialogIsVisible: false,
       paraIsVisible: false,
+      usersAreVisible: false,
     };
   },
   methods: {
+    toggleVisUsers() {
+      this.usersAreVisible = !this.usersAreVisible
+    },
     paraVisible() {
       this.paraIsVisible = !this.paraIsVisible
     },
@@ -72,10 +82,20 @@ export default {
     border: 2px solid #ccc;
     border-radius: 12px;
   }
-  .animate {
-    /* transform: translate(-150px);
-    transition: .5s ease-out; */
-    animation: slide-fade 1s ease-out forwards;
+
+  .fade-btn-enter-from,
+  .fade-btn-leave-to {
+    opacity: 0;
+  }
+  .fade-btn-enter-active {
+    transition: opacity .3s ease-out;
+  }
+  .fade-btn-leave-active {
+    transition: opacity .3s ease-in;
+  }
+  .fade-btn-enter-to,
+  .fade-btn-leave-from {
+    opacity: 1;
   }
 
   /* .v-enter-from {
@@ -103,24 +123,10 @@ export default {
     transform: translateY(-50px)
   } */
 
-  /*** Animate modal*****************************/
-  
   /*********************************************/
   @keyframes slide-fade {
     0% { transform: translateX(0) scale(1); }
     50% { transform: translateX(90px) scale(1.5)}
     100% { transform: translateX(150px) scale(.3)}
   }
-  
-  /* .paragraph {
-    opacity: 0;
-  }
-  .visible {
-    animation: parag-vis .3s ease-out forwards;
-  }
-  @keyframes parag-vis {
-    from { opacity: 0;}
-    to { opacity: 1;}
-  } */
-
 </style>
