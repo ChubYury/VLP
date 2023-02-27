@@ -9,7 +9,7 @@
     </transition>
     <button @click="paraVisible">Toggle paragraph</button>
   </div>
-  <base-modal @close="hideDialog" v-if="dialogIsVisible">
+  <base-modal @close="hideDialog" :open="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
   </base-modal>
@@ -102,6 +102,9 @@ export default {
     opacity: 0;
     transform: translateY(-50px)
   } */
+
+  /*** Animate modal*****************************/
+  
   /*********************************************/
   @keyframes slide-fade {
     0% { transform: translateX(0) scale(1); }
