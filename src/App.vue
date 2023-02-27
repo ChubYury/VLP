@@ -77,6 +77,29 @@ export default {
     transition: .5s ease-out; */
     animation: slide-fade 1s ease-out forwards;
   }
+
+  .v-enter-from {
+    opacity: 0;
+    transform: translateY(-50px)
+  }
+  .v-enter-active {
+    transition: all .3s ease-out
+  }
+  .v-enter-to {
+    opacity: 1;
+    transform: translateY(0)
+  }
+  .v-leave-from {
+    opacity: 1;
+    transform: translateY(0)
+  }
+  .v-leave-active {
+    transition: all .3s ease-in
+  }
+  .v-leave-to {
+    opacity: 0;
+    transform: translateY(-50px)
+  }
   /*********************************************/
   @keyframes slide-fade {
     0% { transform: translateX(0) scale(1); }
