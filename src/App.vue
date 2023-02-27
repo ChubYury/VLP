@@ -70,7 +70,13 @@ export default {
     border-radius: 12px;
   }
   .animate {
-    transform: translate(-150px);
-    transition: .5s ease-out;
+    /* transform: translate(-150px);
+    transition: .5s ease-out; */
+    animation: slide-fade 1s ease-out forwards;
+  }
+  @keyframes slide-fade {
+    0% { transform: translateX(0) scale(1); }
+    50% { transform: translateX(90px) scale(1.5)}
+    100% { transform: translateX(150px) scale(.7)}
   }
 </style>
