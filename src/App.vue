@@ -3,6 +3,12 @@
     <div class="block" :class="{animate: animatedBlock}"></div>
     <button @click="animateBlock">Animate</button>
   </div>
+  <div class="container">
+    <transition>
+      <p v-if="paraIsVisible">This is only sometimes visible...</p>
+    </transition>
+    <button @click="paraVisible">Toggle paragraph</button>
+  </div>
   <base-modal @close="hideDialog" v-if="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
@@ -17,20 +23,17 @@ export default {
   data() {
     return { 
       animatedBlock: false,
-      dialogIsVisible: false 
+      dialogIsVisible: false,
+      paraIsVisible: false,
     };
   },
   methods: {
-    animateBlock() {
-      this.animatedBlock = !this.animatedBlock
-
+    paraVisible() {
+      this.paraIsVisible = !this.paraIsVisible
     },
-    showDialog() {
-      this.dialogIsVisible = true;
-    },
-    hideDialog() {
-      this.dialogIsVisible = false;
-    },
+    animateBlock() {this.animatedBlock = !this.animatedBlock},
+    showDialog() {this.dialogIsVisible = true},
+    hideDialog() {this.dialogIsVisible = false},
   },
 };
 </script>
@@ -74,9 +77,22 @@ export default {
     transition: .5s ease-out; */
     animation: slide-fade 1s ease-out forwards;
   }
+  /*********************************************/
   @keyframes slide-fade {
     0% { transform: translateX(0) scale(1); }
     50% { transform: translateX(90px) scale(1.5)}
     100% { transform: translateX(150px) scale(.7)}
   }
+  
+  /* .paragraph {
+    opacity: 0;
+  }
+  .visible {
+    animation: parag-vis .3s ease-out forwards;
+  }
+  @keyframes parag-vis {
+    from { opacity: 0;}
+    to { opacity: 1;}
+  } */
+
 </style>
