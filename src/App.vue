@@ -4,7 +4,7 @@
     <button @click="animateBlock">Animate</button>
   </div>
   <div class="container">
-    <transition>
+    <transition name="para">
       <p v-if="paraIsVisible">This is only sometimes visible...</p>
     </transition>
     <button @click="paraVisible">Toggle paragraph</button>
@@ -82,7 +82,7 @@ export default {
     opacity: 0;
     transform: translateY(-50px)
   } */
-  .v-enter-active {
+  .para-enter-active {
     /* transition: all .3s ease-out */
     animation: slide-fade 1s ease-out forwards;
   }
@@ -94,7 +94,7 @@ export default {
     opacity: 1;
     transform: translateY(0)
   } */
-  .v-leave-active {
+  .para-leave-active {
     /* transition: all .3s ease-in */
     animation: slide-fade 1s ease-in forwards;
   }
@@ -106,7 +106,7 @@ export default {
   @keyframes slide-fade {
     0% { transform: translateX(0) scale(1); }
     50% { transform: translateX(90px) scale(1.5)}
-    100% { transform: translateX(150px) scale(.7)}
+    100% { transform: translateX(150px) scale(.3)}
   }
   
   /* .paragraph {
