@@ -6,10 +6,13 @@
   <div class="container">
     <transition name="para" 
       @before-enter="beforeEnter"
-      @after-enter="afterEnter"
-      @before-leave="beforeLeave"
-      @after-leave="afterLeave"
       @enter="enter"
+      @after-enter="afterEnter"
+      @enter-cancelled="enterCancelled"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      @leave-cancelled="leaveCancelled"
     >
       <p v-if="paraIsVisible">This is only sometimes visible...</p>
     </transition>
@@ -38,28 +41,72 @@ export default {
       dialogIsVisible: false,
       paraIsVisible: false,
       usersAreVisible: false,
+      enterInterval: null,  
+      leaveInterval: null,
     };
   },
   methods: {
     beforeEnter(el) {
       console.log('beforeEnter()');
-      console.log(el);
+      // console.log(el);
+      el.style.opacity = 0;
+    },
+    enter(el, done) {
+      console.log('enter()');
+      // console.log(el);
+      let round = 1;
+      this.enterInterval = setInterval(() => {
+        el.style.opacity = round * 0.05;
+        round++;
+        if (round > 100) {
+          clearInterval(this.enterInterval);
+          done();
+        }
+      }, 20)
     },
     afterEnter(el) {
       console.log('afterEnter()');
       console.log(el);
+      
     },
+    enterCancelled() {
+      clearInterval(this.enterInterval)
+    },
+    // ***********
     beforeLeave(el) {
       console.log('beforeLeave()');
-      console.log(el);
+      // console.log(el);
+      el.style.opacity = 1;      
+    },
+    leave(el, done) {
+      console.log('leave()');
+      // console.log(el);
+      let round = 1;
+      this.enterInterval = setInterval(() => {
+        el.style.opacity = 1 - round * 0.5;
+        round++;
+        if (round > 100) {
+          clearInterval(this.enterInterval);
+          done();
+        }
+      }, 0.05)
+      // let round = 100;
+      // this.leaveInterval = setInterval(() => {
+      //   el.style.opacity = round * 0.07;
+      //   round-=1;
+      //   if (round < 1) {
+      //     clearInterval(this.leaveInterval);
+      //     done();
+      //   }
+      // }, 15)
     },
     afterLeave(el) {
       console.log('afterLeave()');
       console.log(el);
+      // el.style.opacity = 0;
     },
-    enter(el) {
-      console.log('enter()');
-      console.log(el);
+    leaveCancelled() {
+      clearInterval(this.leaveInterval)
     },
     toggleVisUsers() {this.usersAreVisible = !this.usersAreVisible},
     paraVisible() {this.paraIsVisible = !this.paraIsVisible},
@@ -118,37 +165,5 @@ export default {
   .fade-btn-enter-to,
   .fade-btn-leave-from {
     opacity: 1;
-  }
-
-  /* .v-enter-from {
-    opacity: 0;
-    transform: translateY(-50px)
-  } */
-  .para-enter-active {
-    /* transition: all .3s ease-out */
-    animation: slide-fade 1s ease-out forwards;
-  }
-  /* .v-enter-to {
-    opacity: 1;
-    transform: translateY(0)
-  } */
-  /* .v-leave-from {
-    opacity: 1;
-    transform: translateY(0)
-  } */
-  .para-leave-active {
-    /* transition: all .3s ease-in */
-    animation: slide-fade 1s ease-in forwards;
-  }
-  /* .v-leave-to {
-    opacity: 0;
-    transform: translateY(-50px)
-  } */
-
-  /*********************************************/
-  @keyframes slide-fade {
-    0% { transform: translateX(0) scale(1); }
-    50% { transform: translateX(90px) scale(1.5)}
-    100% { transform: translateX(150px) scale(.3)}
   }
 </style>
