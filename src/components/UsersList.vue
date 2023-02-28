@@ -23,7 +23,7 @@
     methods: {
       addUser() {
         const newUser = this.userInpVal;
-        this.users.push(newUser);
+        this.users.unshift(newUser);
       },
       delUser(idxUser) {
         this.users.splice(idxUser, 1);
@@ -48,18 +48,22 @@
     transform: translateX(-30px)
   }
   .users-list-enter-active {
-    transition: all 1s ease-out
+    transition: all 1s ease-out;
   }
   .users-list-enter-to,
   .users-list-leave-from  {
     opacity: 1;
-    transform: translateX(0)
+    transform: translateX(0);
   }
   .users-list-leave-active {
-    transition: all 1s ease-out
+    transition: all 1s ease-out;
+    position: absolute;
   }
   .users-list-leave-to {
     opacity: 0;
-    transform: translateX(30px)
+    transform: translateX(30px);
+  }
+  .users-list-move {
+    transition: transform 0.8s ease;
   }
 </style>
