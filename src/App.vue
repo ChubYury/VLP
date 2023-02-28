@@ -4,7 +4,8 @@
     <button @click="animateBlock">Animate</button>
   </div>
   <div class="container">
-    <transition name="para" 
+    <transition 
+      :css="false"
       @before-enter="beforeEnter"
       @enter="enter"
       @after-enter="afterEnter"
@@ -56,7 +57,7 @@ export default {
       // console.log(el);
       let round = 1;
       this.enterInterval = setInterval(() => {
-        el.style.opacity = round * 0.05;
+        el.style.opacity = round * 0.01;
         round++;
         if (round > 100) {
           clearInterval(this.enterInterval);
@@ -83,13 +84,13 @@ export default {
       // console.log(el);
       let round = 1;
       this.enterInterval = setInterval(() => {
-        el.style.opacity = 1 - round * 0.5;
+        el.style.opacity = 1 - round * 0.01;
         round++;
         if (round > 100) {
           clearInterval(this.enterInterval);
           done();
         }
-      }, 0.05)
+      }, 10)
       // let round = 100;
       // this.leaveInterval = setInterval(() => {
       //   el.style.opacity = round * 0.07;
