@@ -1,4 +1,9 @@
 <template>
+  <router-view v-slot="slotProps">
+    <transition name="route" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
   <div class="container">
     <users-list></users-list>
   </div>
@@ -172,5 +177,35 @@ export default {
   .fade-btn-enter-to,
   .fade-btn-leave-from {
     opacity: 1;
+  }
+  /*******************/
+  /* .fade-btn-enter-from {} */
+  .route-enter-active {
+    /* transition: opacity .3s ease-out; */
+    animation: slide-fade .3s ease-out;
+  }
+  /* .fade-btn-enter-to {} */
+  /* .fade-btn-leave-from {
+    opacity: 1;
+  }*/
+  .route-leave-active {
+    /* transition: opacity .3s ease-in; */
+    animation: slide-fade .3s ease-in reverse;
+  }
+  /*.fade-btn-leave-to {
+    opacity: 0;
+  } */
+  @keyframes slide-fade {
+    0% {
+      width: 0;
+      opacity: 0;
+      transform: translateX(-50px) scale(1); 
+    }
+    50% { transform: translateX(-30px) scale(1.5)}
+    100% { 
+      width: 100%;
+      opacity: 1;
+      transform: translateX(0) scale(.7)
+    }
   }
 </style>
