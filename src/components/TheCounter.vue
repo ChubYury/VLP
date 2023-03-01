@@ -1,6 +1,6 @@
 <template>
   <h3>{{ counter }}</h3>
-  <button @click="addCount">Add 1</button>
+  <button @click="addCount">Add 10</button>
   <slot></slot>
 </template>
 
@@ -13,7 +13,12 @@
     },
     methods: {
       addCount() {
-        this.$store.state.counter += 11;
+        // this.$store.state.counter += 11;
+        // this.$store.commit('increase', { value: 10 });
+        this.$store.commit({
+          type: 'increase',
+          value: 10,
+        })
       },
     }
   };
