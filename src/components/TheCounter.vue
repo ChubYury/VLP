@@ -1,16 +1,19 @@
 <template>
-  <h3>{{ counter }}</h3>
+  <h3>{{ finalCounter }}</h3>
   <button @click="addCount">Add 10</button>
   <slot></slot>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     computed: {
-      counter() {
-        // return this.$store.state.counter;
-        return this.$store.getters.normalizedCounter;
-      }
+      // counter() {
+      //   // return this.$store.state.counter;
+      //   return this.$store.getters.normalizedCounter;
+      // },
+      ...mapGetters(['finalCounter']),
     },
     methods: {
       addCount() {

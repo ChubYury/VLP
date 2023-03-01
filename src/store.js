@@ -9,7 +9,7 @@ const store = createStore({
   mutations: {
     increment(state) {
       state.counter++;
-      console.log(state);
+      // console.log(state);
     },
     increase(state, payload) {
       state.counter += payload.value;
@@ -22,6 +22,7 @@ const store = createStore({
       },2000)
     },
     increase(context, payload) {
+      console.log('Context',context)
       context.commit({
         type: 'increase',
         value: payload.value
