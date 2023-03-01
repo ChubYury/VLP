@@ -10,7 +10,7 @@
   export default {
     computed: {
       counter() {
-        return this.$store.state.counter
+        return this.$store.state['numbers/counter']
       }
     },
     methods: {
@@ -20,7 +20,7 @@
       // },
       
       // ...mapActions(['increment', 'increase'])
-      ...mapActions({
+      ...mapActions('numbers',{
         inm: 'increment',
         ins: 'increase'
       })

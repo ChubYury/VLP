@@ -13,14 +13,14 @@
       //   // return this.$store.state.counter;
       //   return this.$store.getters.normalizedCounter;
       // },
-      ...mapGetters(['finalCounter']),
+      ...mapGetters('numbers',['finalCounter']),
     },
     methods: {
       addCount() {
         // this.$store.state.counter += 11;
         // this.$store.commit('increase', { value: 10 });
         this.$store.dispatch({
-          type: 'increase',
+          type: 'numbers/increase',
           value: 10,
         })
       },
