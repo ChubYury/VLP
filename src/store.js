@@ -15,6 +15,19 @@ const store = createStore({
       state.counter += payload.value;
     }
   },
+  actions: {
+    increment(context) {
+      setTimeout(() => {
+        context.commit('increment')
+      },2000)
+    },
+    increase(context, payload) {
+      context.commit({
+        type: 'increase',
+        value: payload.value
+      })
+    }
+  },
   getters: {
     finalCounter(state) {
       return state.counter * 2;

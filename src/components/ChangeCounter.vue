@@ -13,7 +13,7 @@
     methods: {
       addCount() {
         // this.$store.state.counter++;
-        this.$store.commit('increment')
+        this.$store.dispatch('increment')
       },
     }
   };
