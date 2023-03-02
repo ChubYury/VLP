@@ -1,5 +1,5 @@
 export default {
   userAuthVisible(state) {
-    return state.userAuthValid
+    return state.isLoggedIn
   }
 }
