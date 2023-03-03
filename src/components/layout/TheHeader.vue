@@ -1,9 +1,10 @@
 <template>
   <header>
     <nav>
+      <h1><router-link to="/">Find a Coach</router-link></h1>
       <ul>
-        <li><h1><router-link to="/coaches">Coach</router-link></h1></li>
-        <li><h1><router-link to="/request">Request</router-link></h1></li>
+        <li><router-link to="/coaches">All Coaches</router-link></li>
+        <li><router-link to="/request">Request</router-link></li>
       </ul>
     </nav>
   </header>
