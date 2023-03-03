@@ -1,5 +1,7 @@
 <template>
    <section>
-    <h2>Filter Block</h2>
+    <base-card>
+      <h2>Filter Block</h2>
+    </base-card>
   </section>
 </template>

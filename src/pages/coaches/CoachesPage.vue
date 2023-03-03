@@ -1,5 +1,4 @@
 <template>
-  <h1>Coach page</h1>
   <filters-block></filters-block>
   <coach-list></coach-list>
 </template>
@@ -10,8 +9,5 @@
 
   export default {
     components: {CoachList, FiltersBlock},
-    data() {
-      return {}
-    },
   }
 </script>

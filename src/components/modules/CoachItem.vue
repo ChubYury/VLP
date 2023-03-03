@@ -3,11 +3,17 @@
     <h3>{{ firstName + " " + lastName}}</h3>
     <h4>{{"$ "+rate}}</h4>
     <p>
-      <span v-for="item in areas" :key="item">{{ item + " " }}</span>
+      <base-badge 
+        v-for="item in areas" 
+        :key="item"
+        :type="item"
+        :title="item"
+
+      >{{ item }}</base-badge>
     </p>
     <p class="actions">
-      <router-link :to="coachContactLink">Contact</router-link>
-      <router-link :to="coachDetailsLink">View Details</router-link>
+      <base-button link mode="outline" :to="coachContactLink">Contact</base-button>
+      <base-button link :to="coachDetailsLink">View Details</base-button>
     </p>
   </li>
 </template>
