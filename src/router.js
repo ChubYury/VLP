@@ -12,7 +12,7 @@ import NotFound from './pages/NotFound.vue'
   routes: [
     { path: '/', redirect: '/coaches' },
     { path: '/coaches', component: CoachesPage },
-    { path: '/coaches/:id', component: CoachDetails,
+    { path: '/coaches/:id', component: CoachDetails, props: true,
       children: [{ path: 'contact', component: CoachContact }]
     },
     { path: '/register', component: CoachRegistration },
