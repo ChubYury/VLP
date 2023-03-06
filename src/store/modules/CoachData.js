@@ -24,8 +24,19 @@ export default {
       ],
     }
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    addNewCoach(state, payload) {
+      const newCoach = payload;
+      console.log(newCoach);
+      state.coaches.push(newCoach)
+      console.log(state.coaches);
+    }
+  },
+  actions: {
+    getNewCoach(context, payload) {
+      context.commit('addNewCoach',payload)
+    }
+  },
   getters: {
     setCoaches(state) {
       return state.coaches
