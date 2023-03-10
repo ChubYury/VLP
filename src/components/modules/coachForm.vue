@@ -1,59 +1,60 @@
 <template>
   <form action="" @submit.prevent>
-    <div class="form-control" :class="{invalid: !isValid.firstNameValid}">
+    <div class="form-control" :class="{invalid: !firstName.isValid}">
       <label for="user-name">First name:</label>
       <input
         type="text"
         id="firstNameInp"
-        v-model.trim="firstNameVal"
-        @blur="validatorInp('firstNameVal')"
-      />
-    </div>
-    <div class="form-control" :class="{invalid: !isValid.lastNameValid}">
+        v-model.trim="firstName.val"
+        @blur="clearValidity('firstName')"
+        />
+      </div>
+    <div class="form-control" :class="{invalid: !lastName.isValid}">
       <label for="lastNameInp">Last name:</label>
       <input
         type="text"
         id="lastNameInp"
-        v-model.trim="lastNameVal"
-        @blur="validatorInp('lastNameVal')"
-        />
+        v-model.trim="lastName.val"
+        @blur="clearValidity('lastName')"
+      />
     </div>
-    <div class="form-control" :class="{invalid: !isValid.rateValid}">
+    <div class="form-control" :class="{invalid: !rate.isValid}">
       <label for="rateInp">What rate:</label>
       <input
         type="number"
         id="rateInp"
-        v-model.trim="rateVal"
-        @blur="validatorInp('rateVal')"
+        v-model.trim="rate.val"
+        @blur="clearValidity('rate')"
         />
     </div>
-    <div>
+    <div class="form-control" :class="{invalid: !areas.isValid}">
       <h3>Areas of Expertise</h3>
       <p>
-        <span>
-          <input type="checkbox" id="frontend" value="frontend" v-model="areas">
+        <span >
+          <input type="checkbox" id="frontend" value="frontend" v-model="areas.val" @blur="clearValidity('areas')">
           <label for="frontend">Frontend</label>
         </span>
-        <span>
-          <input type="checkbox" id="backend" value="backend" v-model="areas">
+        <span >
+          <input type="checkbox" id="backend" value="backend" v-model="areas.val" @blur="clearValidity('areas')">
           <label for="backend">Backend</label>
         </span>
-        <span>
-          <input type="checkbox" id="career" value="career" v-model="areas">
+        <span >
+          <input type="checkbox" id="career" value="career" v-model="areas.val" @blur="clearValidity('areas')">
           <label for="career">career</label>
         </span>
       </p>
     </div>
-    <div class="form-control" :class="{invalid: !isValid.descrValid}">
+    <div class="form-control" :class="{invalid: !descr.isValid}">
       <label for="descrInp">Description:</label>
       <textarea
         id="descrInp"
         cols="10"
         rows="5"
-        v-model.trim="descrVal"
-        @blur="validatorInp('descrVal')"
+        v-model.trim="descr.val"
+        @blur="clearValidity('descr')"
         ></textarea>
     </div>
+    <p v-if="!formIsValid">Please fix the above errors and submit againe.</p>
     <base-button mode="outline" @click="setNewCoach">Send</base-button>
   </form>
 </template>
@@ -63,58 +64,85 @@
     emits:['set-data'],
     data() {
       return {
-        userNameInp: '',
-        firstNameVal: '',
-        lastNameVal: '',
-        rateVal: null,
-        areas: [],
-        descrVal: '',
-        isValid: {
-          firstNameValid: true,
-          lastNameValid: true,
-          rateValid: true,
-          descrValid: true,
+        firstName: {
+          val: '',
+          isValid: true
         },
+        lastName: {
+          val: '',
+          isValid: true
+        },
+        rate: {
+          val: null,
+          isValid: true
+        },
+        areas: {
+          val: [],
+          isValid: true
+        },
+        descr: {
+          val: '',
+          isValid: true
+        },
+        formIsValid: true,
+        // isValid: {
+        //   firstNameValid: true,
+        //   lastNameValid: true,
+        //   rateValid: true,
+        //   descrValid: true,
+        // },
       };
     },
     computed: {
       
     },
     methods: {
-      validatorInp(keyValue) {
-        if (keyValue === 'firstNameVal') {
-          this.isValid.firstNameValid = this.firstNameVal === '' ? false : true;
-        } else if (keyValue === 'lastNameVal') {
-          this.isValid.lastNameValid = this.lastNameVal === '' ? false : true;
-        } else if (keyValue === 'rateVal') {
-          this.isValid.rateValid = this.rateVal === null ? false : true;
-        } else if (keyValue === 'descrVal') {
-          this.isValid.descrValid = this.descrVal === '' ? false : true;
+      clearValidity(input) {
+        this[input].isValid = true;
+      },
+      validateForm() {
+        this.formIsValid = true;
+        if (this.firstName.val === '') {
+          this.firstName.isValid = false;
+          this.formIsValid = false;
+        }
+        if (this.lastName.val === '') {
+          this.lastName.isValid = false;
+          this.formIsValid = false;
+        }
+        if (this.rate.val === null || this.rate.val < 0) {
+          this.rate.isValid = false;
+          this.formIsValid = false;
+        }
+        if (this.areas.val.length === 0) {
+          this.areas.isValid = false;
+          this.formIsValid = false;
+        }
+        if (this.descr.val === '') {
+          this.descr.isValid = false;
+          this.formIsValid = false;
         }
       },
+      
       setNewCoach() {
-        this.isValid.firstNameValid = this.firstNameVal === '' ? false : true;
-        this.isValid.lastNameValid = this.lastNameVal === '' ? false : true;
-        this.isValid.rateValid = this.rateVal === null ? false : true;
-        this.isValid.descrValid = this.descrVal === '' ? false : true;
+        this.validateForm();
         
-        const validForm = Object.values(this.isValid).find((i) => i !== true)
-        if (validForm === undefined) {
-          const newCoach = {
-            firstName: this.firstNameVal,
-            lastName: this.lastNameVal,
-            areas: this.areas,
-            description: this.descrVal,
-            hourlyRate: this.rateVal
-          }
-          
-          this.$emit('set-data', newCoach)
+        if (!this.formIsValid) return;
+
+        const newCoach = {
+          firstName: this.firstName.val,
+          lastName: this.lastName.val,
+          areas: this.areas.val,
+          description: this.descr.val,
+          hourlyRate: this.rate.val
         }
         
-        this.firstNameVal = '';
-        this.lastNameVal = '';
-        this.rateVal = '';
-        this.descrVal = '';
+        this.$emit('set-data', newCoach)
+        
+        this.firstName.val = '';
+        this.lastName.val = '';
+        this.rate.val = null;
+        this.descr.val = '';
       }
     }
   };
