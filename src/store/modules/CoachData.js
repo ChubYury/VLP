@@ -26,14 +26,16 @@ export default {
   },
   mutations: {
     addNewCoach(state, payload) {
-      const newCoach = payload;
-      console.log(newCoach);
-      state.coaches.push(newCoach)
-      console.log(state.coaches);
+      state.coaches.push(payload)
     }
   },
   actions: {
-    getNewCoach(context, payload) {
+    registerCoach(context, payload) {
+      const idCoach = `c${context.getters.setCoaches.length + 1}`;
+      const newCoach = payload;
+      
+      newCoach.id = idCoach;
+      context.commit('addAuthUserId', newCoach.id , { root: true })
       context.commit('addNewCoach',payload)
     }
   },
@@ -43,6 +45,12 @@ export default {
     },
     hasCoaches(state) {
       return state.coaches && state.coaches.length > 0;
+    },
+    isCoach(_state, getters, _rootState, rootGetters) {
+      const coaches = getters.setCoaches;
+      const userId = rootGetters.showId;
+
+      return !coaches.some(coach => coach.id === userId);
     }
   }
 }

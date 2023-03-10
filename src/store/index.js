@@ -14,8 +14,8 @@ const store = createStore({
   },
   state() {
     return {
-
-    }
+      userId: '',
+    };
   },
   mutations: rootMutations,
   actions: rootActions,
