@@ -36,7 +36,7 @@ export default {
       
       newCoach.id = idCoach;
       context.commit('addAuthUserId', newCoach.id , { root: true })
-      context.commit('addNewCoach',payload)
+      context.commit('addNewCoach',newCoach)
     }
   },
   getters: {

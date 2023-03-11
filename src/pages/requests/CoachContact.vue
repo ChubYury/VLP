@@ -1,6 +1,6 @@
 <template>
   <form action="" @submit.prevent>
-    <h2>Coach contact</h2>
+    <!-- <h2>Coach contact</h2> -->
     <div class="form-control" :class="{errors: emailField.isError}">
       <label for="contactInpEmail">Email:</label>
       <input 
@@ -66,12 +66,17 @@
       submitForm() {
         this.validForm();
 
-        if (!this.flagValidForm) {
-          console.log('Form not valid')
-          return
-        }
+        if (!this.flagValidForm) return
 
-        console.log('Form valid')
+        const coachId = this.$route.params.id
+        const newReq = {
+          coachId,
+          email: this.emailField.val,
+          message: this.questField.val
+        }
+        
+        this.$store.dispatch('req/contactCoach', newReq)
+        this.$router.replace('/coaches');
       }
     }  
   }
