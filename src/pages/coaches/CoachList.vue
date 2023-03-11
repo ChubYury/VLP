@@ -55,7 +55,6 @@
         return this.$store.getters['coaches/hasCoaches'];
       },
       isAuthCoach() {
-        console.log(this.$store.getters['coaches/isCoach']);
         return this.$store.getters['coaches/isCoach'];
       }
     },
