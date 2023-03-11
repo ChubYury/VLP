@@ -53,15 +53,11 @@
           
           this.emailField.isError = true;
           this.flagValidForm = false;
-          
-          console.log('Email value: ',this.emailField.val)
-          console.log('tut',this.flagValidForm)
         }
         if (this.questField.val === '') {
           this.questField.isError = true;
           this.flagValidForm = false;
         }
-        console.log(this.flagValidForm)
       },
       submitForm() {
         this.validForm();

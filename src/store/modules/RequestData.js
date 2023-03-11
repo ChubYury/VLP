@@ -19,13 +19,16 @@ export default {
         userEmail: payload.email,
         userMessage: payload.message
       }
-      console.log(newRequest)
+      
       context.commit('addRequest', newRequest)
     }
   },
   getters: {
     showRequests(state) {
       return state.requests
+    },
+    hasRequests(state) {
+      return state.requests && state.requests.length > 0;
     }
   }
 }
