@@ -30,13 +30,27 @@ export default {
     }
   },
   actions: {
-    registerCoach(context, payload) {
-      const idCoach = `c${context.getters.setCoaches.length + 1}`;
+    async registerCoach(context, payload) {
+      const idCoach = `c${context.getters.setCoaches.length + 1 + new Date().toISOString()}`;
       const newCoach = payload;
       
       newCoach.id = idCoach;
-      context.commit('addAuthUserId', newCoach.id , { root: true })
-      context.commit('addNewCoach',newCoach)
+      console.log(newCoach)
+      const response = await fetch('http://localhost:3020/coaches', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/JSON;charset=utf-8',
+        },
+        body: JSON.stringify(newCoach)
+      });
+      
+      const result = await response.json();
+      console.log('Response for register coach');
+      console.log(result)
+      console.log('__________________')
+      context.commit('addAuthUserId', result.id , { root: true });
+      context.commit('addNewCoach', result);
+
     }
   },
   getters: {
