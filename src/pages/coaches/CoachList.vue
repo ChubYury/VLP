@@ -5,13 +5,15 @@
       <div class="controls">
         <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
         <base-button 
-          v-if="isAuthCoach"
+          v-if="isAuthCoach && !isLoading"
           link 
           to="/register"
         >Register as Coach</base-button>
       </div>
-    
-      <ul v-if="hasCoaches">
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="hasCoaches">
         <coach-item
           v-for="coach in filteredCoaches" :key="coach.id"
           :id = "coach.id"
@@ -27,13 +29,15 @@
 </template>
 
 <script>
-  import FiltersBlock from '../../components/modules/FiltersBlock.vue'
-  import CoachItem from '../../components/modules/CoachItem.vue'
+  import FiltersBlock from '../../components/modules/FiltersBlock.vue';
+  import CoachItem from '../../components/modules/CoachItem.vue';
+  
 
   export default {
     components: {CoachItem, FiltersBlock},
     data() {
       return {
+        isLoading:false,
         activeFilters: {
           frontend: true,
           backend: true,
@@ -52,7 +56,7 @@
         })
       },
       hasCoaches() {
-        return this.$store.getters['coaches/hasCoaches'];
+        return !this.isLoading && this.$store.getters['coaches/hasCoaches'];
       },
       isAuthCoach() {
         return this.$store.getters['coaches/isCoach'];
@@ -62,8 +66,10 @@
       setFilters(updateFilters) {
         this.activeFilters = updateFilters;
       },
-      loadCoaches() {
-        this.$store.dispatch('coaches/getCoaches')
+    async loadCoaches() {
+        this.isLoading = true;
+        await this.$store.dispatch('coaches/getCoaches');
+        this.isLoading = false;
       }
     },
     created() {
