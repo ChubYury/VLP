@@ -3,7 +3,7 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline">Refresh</base-button>
+        <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
         <base-button 
           v-if="isAuthCoach"
           link 
@@ -60,8 +60,14 @@
     },
     methods: {
       setFilters(updateFilters) {
-        this.activeFilters = updateFilters; 
+        this.activeFilters = updateFilters;
+      },
+      loadCoaches() {
+        this.$store.dispatch('coaches/getCoaches')
       }
+    },
+    created() {
+      this.loadCoaches();
     }
   }
 </script>

@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
 
-import CoachData from './modules/CoachData.js';
+import CoachData from './modules/coaches';
 import RequestData from './modules/RequestData.js'
 
 import rootMutations from './mutations.js';
