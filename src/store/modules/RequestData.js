@@ -24,11 +24,12 @@ export default {
     }
   },
   getters: {
-    showRequests(state) {
-      return state.requests
+    showRequests(state, _getters, _rootState, rootGetters) {
+      const userId = rootGetters.showId;
+      return state.requests.filter(req => req.coachId === userId);
     },
-    hasRequests(state) {
-      return state.requests && state.requests.length > 0;
+    hasRequests(_state, getters) {
+      return getters.showRequests && getters.showRequests.length > 0;
     }
   }
 }
