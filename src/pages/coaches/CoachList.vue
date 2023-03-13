@@ -1,5 +1,14 @@
 <template>
-  <filters-block @change-filter="setFilters"></filters-block>
+  <base-dialog 
+    :show="!!error"
+    title="An error occurred!"
+    @close="handleError"
+  >
+    <p>{{ error }}</p>
+  </base-dialog>
+  <section>
+    <filters-block @change-filter="setFilters"></filters-block>
+  </section>
   <section>
     <base-card>
       <div class="controls">
@@ -37,7 +46,8 @@
     components: {CoachItem, FiltersBlock},
     data() {
       return {
-        isLoading:false,
+        isLoading: false,
+        error: null,
         activeFilters: {
           frontend: true,
           backend: true,
@@ -66,10 +76,17 @@
       setFilters(updateFilters) {
         this.activeFilters = updateFilters;
       },
-    async loadCoaches() {
+      async loadCoaches() {
         this.isLoading = true;
-        await this.$store.dispatch('coaches/getCoaches');
+        try {
+          await this.$store.dispatch('coaches/getCoaches');
+        } catch (error) {
+          this.error = error.message || 'Someting went wrong!';
+        }
         this.isLoading = false;
+      },
+      handleError() {
+        this.error = null;
       }
     },
     created() {
