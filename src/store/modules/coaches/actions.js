@@ -26,6 +26,7 @@ export default {
     if (!response.ok) {
       const error = new Error(result.message || 'Failed to featch!');
       console.error(error)
+      throw error
     }
     
     context.commit('setCoaches', result);
