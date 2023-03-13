@@ -17,7 +17,9 @@ export default {
     context.commit('addNewCoach', result);
 
   },
-  async getCoaches(context) {
+  async getCoaches(context, payload) {
+    if (!payload.forceRefresh && !context.getters.shouldUpdate) return;
+
     const response = await fetch('http://localhost:3020/coaches')
     const result = await response.json();
     
@@ -27,5 +29,6 @@ export default {
     }
     
     context.commit('setCoaches', result);
+    context.commit('setFetchTimestamp')
   }
 }
