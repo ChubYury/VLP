@@ -1,5 +1,1 @@
-export default {
-  showId(state) {
-    return state.userId
-  }
-}
+export default {}
