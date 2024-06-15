@@ -1,1 +1,1 @@
-App for accounting of coachesS
+App for accounting of coaches
