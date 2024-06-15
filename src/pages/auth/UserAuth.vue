@@ -44,12 +44,20 @@ export default {
   },
   methods: {
     submitForm() {
-     this.formIsValid = true; 
-      if (this.email === ''|| this.email.includes('@') || this.password.length < 6) {
+      this.formIsValid = true; 
+      // console.log('E-mail: ',this.email);
+      // console.log('Password: ', this.password);
+      // console.log(this.formIsValid)
+      if (this.email === ''|| !this.email.includes('@') || this.password.length < 6) {
         this.formIsValid = false;
         return
       }
-
+      if(this.mode === 'signup') {
+        
+        this.$store.dispatch('signup', {email: this.email, password: this.password})
+      } else {
+        this.$store.dispatch('login')
+      }
     },
     switchAutMode() {
       this.mode === 'login' ? this.mode = 'signup' : this.mode = 'login'
