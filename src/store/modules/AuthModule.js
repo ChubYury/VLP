@@ -14,37 +14,52 @@ export default {
     }
   },
   actions: {
-    async login() {
-      const response = await fetch('http://localhost:3020/products')
-      console.log(response.body)
-      
+    async login(context, payload) {
+      const response = await fetch('http://localhost:3020/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/JSON;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
       const result = await response.json();
-      console.log('Response for question');
-      console.log(result);
-      console.log('_____________________________');
-    },
-    
-    async signup(context, payload) {
-      try {
-        const response = await fetch('http://localhost:3020/api/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/JSON;charset=utf-8' },
-          body: JSON.stringify(payload)
-        });
-        const result = await response.json();
-        console.log('Result: ', result);
-        
+      
+      if (!response.ok) {
+        const error = new Error(result.mess || 'Faild to authenticate');
+        throw error;
+      }
+  
         context.commit('setUser', {
           token: result.token,
           userId: result.userId,
           tokenExpiration: result.expiresIn
         })
-      } catch (error) {console.error(error)}
+    },
+    
+    async signup(context, payload) {
+      const response = await fetch('http://localhost:3020/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/JSON;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      
+      if (!response.ok) {
+        const error = new Error(result.mess || 'Faild to authenticate');
+        throw error;
+      }
+
+      context.commit('setUser', {
+        token: result.token,
+        userId: result.userId,
+        tokenExpiration: result.expiresIn
+      })
     }
   },
   getters: {
     showId(state) {
-      return state.userId
+      return state.userId;
+    },
+    token(state) {
+      return state.token;
     }
   }
 }
