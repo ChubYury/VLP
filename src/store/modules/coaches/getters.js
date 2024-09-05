@@ -9,7 +9,7 @@ export default {
     const coaches = getters.setCoaches;
     const userId = rootGetters.showId;
 
-    return !coaches.some(coach => coach.id === userId);
+    return coaches.some(coach => coach.userId === userId);
   },
   shouldUpdate(state) {
     const lastFetch = state.lastFetch;
