@@ -1,16 +1,18 @@
 export default {
   async registerCoach(context, payload) {
+    // const token = context.rootGetters.token;
+    const userId = context.rootGetters.showId;
+    const newCoachData = {...payload, userId: userId};
+    
     const response = await fetch('http://localhost:3020/api/setCoache', {
       method: 'POST',
       headers: { 'Content-Type': 'application/JSON;charset=utf-8' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(newCoachData)
     });
     const result = await response.json();
-    console.log('Result: ', result);
     
-    context.commit('addAuthUserId', result._id , { root: true });
+    // context.commit('addAuthUserId', result.userId, { root: true });
     context.commit('addNewCoach', result);
-
   },
 
   async getCoaches(context, payload) {
@@ -28,4 +30,4 @@ export default {
     context.commit('setCoaches', result);
     context.commit('setFetchTimestamp');
   }
-}
+};
