@@ -57,7 +57,7 @@
     created() {
       const coachesList = this.$store.getters['coaches/setCoaches'];
       this.selectedCouch =  coachesList.find(
-        (couch) => couch.id === this.id
+        (couch) => couch.userId === this.id
       );
     }
   }
