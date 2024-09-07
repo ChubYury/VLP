@@ -25,8 +25,8 @@
         </div>
         <ul v-else-if="hasCoaches">
           <coach-item
-            v-for="coach in filteredCoaches" :key="coach.id"
-            :id = "coach.id"
+            v-for="coach in filteredCoaches" :key="coach.userId"
+            :id = "coach.userId"
             :firstName = "coach.firstName"
             :lastName = "coach.lastName"
             :areas = "coach.areas"
