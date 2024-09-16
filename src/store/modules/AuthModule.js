@@ -26,12 +26,12 @@ export default {
         const error = new Error(result.mess || 'Faild to authenticate');
         throw error;
       }
-  
-        context.commit('setUser', {
-          token: result.token,
-          userId: result.userId,
-          tokenExpiration: result.expiresIn
-        })
+      
+      context.commit('setUser', {
+        token: result.token,
+        userId: result.userId,
+        tokenExpiration: result.expiresIn
+      });
     },
     
     async signup(context, payload) {
