@@ -52,6 +52,14 @@ export default {
         userId: result.userId,
         tokenExpiration: result.expiresIn
       })
+    },
+
+    logout(context) {
+      context.commit('setUser', {
+        token: null,
+        userId: null,
+        tokenExpiration: null
+      })
     }
   },
   getters: {
