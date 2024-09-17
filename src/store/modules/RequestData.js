@@ -15,41 +15,48 @@ export default {
   },
   actions: {
     async contactCoach(context, payload) {
-      const randomId = Math.round(Math.random()* 10000)
-      const reqId = `req${randomId + 1 + new Date().toISOString()}`
       const newRequest = {
-        id: reqId,
         coachId: payload.coachId,
         userEmail: payload.email,
         userMessage: payload.message
       };
       
-      const response = await fetch('http://localhost:3020/requests', {
+      const response = await fetch('http://localhost:3020/api/setrequest', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/JSON;charset=utf-8',
-          
         },
         body: JSON.stringify(newRequest)
       });
       const result = await response.json();
-      console.log('Response for question');
-      console.log(result);
-      console.log('_____________________________');
-
-      context.commit('addRequest', newRequest);
+      
+      if (!response.ok) {
+        const error = new Error(result.mess || 'Faild to featch!');
+        console.log(error);
+        throw error;
+      }
+      
+      context.commit('addRequest', result);
     },
     async getRequests(context) {
-      const coachIdReq = context.rootGetters.showId;
-      const response = await fetch(`http://localhost:3020/requests?coachId=${coachIdReq}`);
+      const token = context.rootGetters.token;
+      
+      const response = await fetch(`http://localhost:3020/api/getrequests`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/JSON;charset=utf-8',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
       const result = await response.json();
 
       if (!response.ok) {
-        const error = new Error(result.message || 'Faild to featch!');
-        console.log(error)
+        const error = new Error(result.mess || 'Faild to featch!');
+        throw error;
       }
-      console.log(response)
-      context.commit('setRequests', result)
+
+      context.commit('setRequests', result);
     } 
   },
   getters: {
