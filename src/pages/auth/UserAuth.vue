@@ -74,9 +74,11 @@ export default {
       }
 
       try {
-        if(this.mode === 'signup') {
-          await this.$store.dispatch('signup', userData);
-        } else await this.$store.dispatch('login', userData);
+        if(this.mode === 'signup')  await this.$store.dispatch('signup', userData);
+        else await this.$store.dispatch('login', userData);
+        
+        const redirectURL = `/${this.$route.query.redirect || 'coaches'}`;
+        this.$router.replace(redirectURL);
       } catch (err) {this.error = err.message || 'Failed authenticate, try later.'}
       this.isLoading = false;
     },
