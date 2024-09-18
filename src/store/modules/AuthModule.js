@@ -1,16 +1,21 @@
+let timer;
+
 export default {
   state() {
     return {
       token: null,
       userId: null,
-      tokenExpiration: null
+      didAutoLogout: false
     }
   },
   mutations: {
     setUser(state, payload) {
       state.token = payload.token;
       state.userId = payload.userId;
-      state.tokenExpiration = payload.tokenExpiration;
+      state.didAutoLogout = false;
+    },
+    setAutoLogout(state) {
+      state.didAutoLogout = true;
     }
   },
   actions: {
@@ -47,37 +52,57 @@ export default {
         const error = new Error(result.mess || 'Faild to authenticate');
         throw error;
       }
+
+      const expiresIn = +result.expiresIn * 1000;
+      const expirationDate = new Date().getTime() + expiresIn
       
       localStorage.setItem('token', result.token);
       localStorage.setItem('userId', result.userId);
-      // localStorage.setItem('tokenExpiration', result.expiresIn);
+      localStorage.setItem('tokenExpiration', expirationDate);
 
-      console.log(result.userId);
+      timer = setTimeout(() => {
+        context.dispatch('autoLogout');
+      }, expiresIn)
 
       context.commit('setUser', {
         token: result.token,
         userId: result.userId,
-        tokenExpiration: result.expiresIn
       });
     },
     tryLogin(context) {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
+      const tokenExpiration = localStorage.getItem('tokenExpiration');
+      const expiresIn = +tokenExpiration - new Date().getTime();
+
+      if (expiresIn < 0) return;
+
+      timer = setTimeout(() => {
+        context.dispatch('autoLogout');
+      }, expiresIn);
 
       if (token && userId) {
         context.commit('setUser', {
           token,
           userId,
-          tokenExpiration: null
         });
       }
     },
     logout(context) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('tokenExpiration');
+
+      clearTimeout(timer);
+
       context.commit('setUser', {
         token: null,
         userId: null,
-        tokenExpiration: null
       })
+    },
+    autoLogout(context) {
+      context.dispatch('logout');
+      context.commit('setAutoLogout');
     }
   },
   getters: {
@@ -89,6 +114,9 @@ export default {
     },
     isAuthenticated(state) {
       return !state.token;
+    },
+    didAutoLogout(state) {
+      return state.didAutoLogout;
     }
   }
 }
