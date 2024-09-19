@@ -39,25 +39,25 @@
     },
     computed: {
       fullName() {
-        return this.selectedCouch.firstName + ' ' + this.selectedCouch.lastName
+        return this.selectedCouch.firstName + ' ' + this.selectedCouch.lastName;
       },
       rate() {
-        return this.selectedCouch.hourlyRate
+        return this.selectedCouch.hourlyRate;
       },
       contactLink() {
-        return this.$route.path + '/contact'
+        return this.$route.path + '/contact';
       },
       areas() {
-        return this.selectedCouch.areas
+        return this.selectedCouch.areas;
       },
       description() {
-        return this.selectedCouch.description
+        return this.selectedCouch.description;
       }
     },
     created() {
       const coachesList = this.$store.getters['coaches/setCoaches'];
       this.selectedCouch =  coachesList.find(
-        (couch) => couch.id === this.id
+        (couch) => couch.userId === this.id
       );
     }
   }

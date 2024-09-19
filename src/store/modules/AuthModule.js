@@ -1,67 +1,122 @@
+let timer;
+
 export default {
   state() {
     return {
-      userId: '',
+      token: null,
+      userId: null,
+      didAutoLogout: false
     }
   },
   mutations: {
-    addAuthUserId(state, payload) {
-      state.userId = payload;
+    setUser(state, payload) {
+      state.token = payload.token;
+      state.userId = payload.userId;
+      state.didAutoLogout = false;
+    },
+    setAutoLogout(state) {
+      state.didAutoLogout = true;
     }
   },
   actions: {
-    async login() {
-      const response = await fetch('http://localhost:3020/products')
-      // , {
-      //   method: 'GET',
-      //   mode:'no-cors',
-      //   cache: 'no-cache', 
-      //   credentials: 'omit',
-      // }
-      
-      // .then(response => response.json())
-      // .then(data => console.log(data))
-      // .then(response => console.log(response))
-      
-
-
-      console.log(response)
-      console.log(response.ok)
-      console.log(response.bodyUsed)
-      console.log(response.status)
-      console.log(response.type)
-      console.log(response.body)
-      const result = await response.json();
-      console.log('Response for question');
-      console.log(result);
-      console.log('_____________________________');
+    async login(context, payload) {
+      return context.dispatch('auth',{
+        ...payload,
+        mode: 'login'
+      });
     },
     
-    async signup(_context, payload) {
-      const newRequest = {
-        email: payload.email,
-        password: payload.password
-      };
-
-      console.log(newRequest)
-      // await fetch('http://localhost:3020/signup')
+    async signup(context, payload) {
+      return context.dispatch('auth',{
+        ...payload,
+        mode: 'signup'
+      });
+    },
+    async auth(context, payload) {
+      const mode = payload.mode;
+      let url ='';
       
-      const response = await fetch('http://localhost:3020/signup', {
+      if (mode === 'login') url = 'https://vue-server-tau.vercel.app/api/login';
+      else url = 'https://vue-server-tau.vercel.app/api/signup';
+       
+      delete payload.mode
+
+      const response = await fetch(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/JSON;charset=utf-8',
-        },
-        body: JSON.stringify(newRequest),
+        headers: { 'Content-Type': 'application/JSON;charset=utf-8' },
+        body: JSON.stringify(payload)
       });
       const result = await response.json();
-      console.log('Response for question');
-      console.log(result);
-      console.log('_____________________________');
+      
+      if (!response.ok) {
+        const error = new Error(result.mess || 'Faild to authenticate');
+        throw error;
+      }
+
+      const expiresIn = +result.expiresIn * 1000;
+      const expirationDate = new Date().getTime() + expiresIn
+      
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('userId', result.userId);
+      localStorage.setItem('tokenExpiration', expirationDate);
+
+      timer = setTimeout(() => {
+        context.dispatch('autoLogout');
+      }, expiresIn)
+
+      context.commit('setUser', {
+        token: result.token,
+        userId: result.userId,
+      });
+    },
+    tryLogin(context) {
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('userId');
+      const tokenExpiration = localStorage.getItem('tokenExpiration');
+      const expiresIn = +tokenExpiration - new Date().getTime();
+
+      if (expiresIn < 0) return;
+
+      timer = setTimeout(() => {
+        context.dispatch('autoLogout');
+      }, expiresIn);
+
+      if (token && userId) {
+        context.commit('setUser', {
+          token,
+          userId,
+        });
+      }
+    },
+    logout(context) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('tokenExpiration');
+
+      clearTimeout(timer);
+
+      context.commit('setUser', {
+        token: null,
+        userId: null,
+      })
+    },
+    autoLogout(context) {
+      context.dispatch('logout');
+      context.commit('setAutoLogout');
     }
   },
   getters: {
     showId(state) {
-      return state.userId
+      return state.userId;
+    },
+    token(state) {
+      return state.token;
+    },
+    isAuthenticated(state) {
+      return !state.token;
+    },
+    didAutoLogout(state) {
+      return state.didAutoLogout;
     }
   }
 }
