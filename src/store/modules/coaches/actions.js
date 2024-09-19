@@ -3,7 +3,7 @@ export default {
     const userId = context.rootGetters.showId;
     const newCoachData = {...payload, userId: userId};
     
-    const response = await fetch('http://localhost:3020/api/setCoache', {
+    const response = await fetch('https://vue-server-tau.vercel.app/api/setCoache', {
       method: 'POST',
       headers: { 'Content-Type': 'application/JSON;charset=utf-8' },
       body: JSON.stringify(newCoachData)
