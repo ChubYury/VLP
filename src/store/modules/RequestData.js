@@ -21,7 +21,7 @@ export default {
         userMessage: payload.message
       };
       
-      const response = await fetch('http://localhost:3020/api/setrequest', {
+      const response = await fetch('https://vue-server-tau.vercel.app/api/setrequest', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/JSON;charset=utf-8',
@@ -41,7 +41,7 @@ export default {
     async getRequests(context) {
       const token = context.rootGetters.token;
       
-      const response = await fetch(`http://localhost:3020/api/getrequests`, {
+      const response = await fetch(`https://vue-server-tau.vercel.app/api/getrequests`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/JSON;charset=utf-8',

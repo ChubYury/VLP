@@ -36,8 +36,8 @@ export default {
       const mode = payload.mode;
       let url ='';
       
-      if (mode === 'login') url = 'http://localhost:3020/api/login';
-      else url = 'http://localhost:3020/api/signup';
+      if (mode === 'login') url = 'https://vue-server-tau.vercel.app/api/login';
+      else url = 'https://vue-server-tau.vercel.app/api/signup';
        
       delete payload.mode
 

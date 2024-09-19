@@ -1,6 +1,5 @@
 export default {
   async registerCoach(context, payload) {
-    // const token = context.rootGetters.token;
     const userId = context.rootGetters.showId;
     const newCoachData = {...payload, userId: userId};
     
@@ -18,7 +17,7 @@ export default {
   async getCoaches(context, payload) {
     if (!payload.forceRefresh && !context.getters.shouldUpdate) return;
     
-    const response = await fetch('http://localhost:3020/api/getCoaches');
+    const response = await fetch('https://vue-server-tau.vercel.app/api/getCoaches');
     const result = await response.json();
     
     if (!response.ok) {
